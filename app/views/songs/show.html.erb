@@ -1,4 +1,12 @@
 <p id="notice"><%= notice %></p>
+            <%= @song.user_id %>
+            <%= @song.user.name  %>
+            <%= time_ago_in_words(@song.created_at) %>
+            <%= @song.title %>
+            <audio class="img-responsive"  controls><source src="/assets/<%= @song.song %>" type="<%= @song.song_type %>"></audio>
+            <%= @song.category %>
+            <%= @song.language %>
+            <%= @song.likes.length %>
 
 <%= link_to 'Edit', edit_song_path(@song) %> |
 <%= link_to 'Back', songs_path %>
