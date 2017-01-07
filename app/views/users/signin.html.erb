@@ -1,0 +1,15 @@
+ <%= form_for(:login, url: login_path) do |f| %>
+ <div class="row">
+   <div class="col-md-6 col-md-offset-3">
+     <div class="row">
+       <%= f.label :email,class: "col-md-4" %>
+       <%= f.email_field :email,class: "form-control col-md-6",placeholder: "Email" %>
+     </div><p></p>
+     <div class="row">
+       <%= f.label :Password,class: "col-md-4" %>
+       <%= f.password_field :password,class: "form-control col-md-6",placeholder: "Password" %>
+     </div><p></p>
+     <div class="row">
+       <%= f.submit "Signin",class: "btn btn-default center-block" %>
+       <% end %>
+     </div></div></div>
