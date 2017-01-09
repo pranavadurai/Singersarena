@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170107104100) do
+ActiveRecord::Schema.define(version: 20170109165455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,14 +60,14 @@ ActiveRecord::Schema.define(version: 20170107104100) do
     t.string   "pictype"
     t.string   "dpic"
     t.text     "aboutme"
-    t.boolean  "msga"
-    t.boolean  "viemail"
-    t.boolean  "viphone"
-    t.boolean  "is_singer"
+    t.boolean  "msga",       default: true
+    t.boolean  "viemail",    default: true
+    t.boolean  "viphone",    default: true
+    t.boolean  "is_singer",  default: true
     t.json     "tag_hear"
     t.json     "tag_sing"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
 end

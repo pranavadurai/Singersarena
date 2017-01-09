@@ -22,7 +22,7 @@ class UsersController < ApplicationController
       redirect_to root_path
     else
       render text: '<div class="alert alert-success Text-center" role="alert">Email Or Password Wrong</div>'.html_safe
-    end  
+    end
   end
   # GET /users/new
   def new
@@ -36,13 +36,12 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-
     if params[:user][:image].present?
-       params[:user][:pictype] = params[:user][:image].content_type.chomp
-       params[:user][:pic]     = params[:user][:image].read
+       params[:user][:pictype]  = params[:user][:image].content_type.chomp
+       params[:user][:pic]      = params[:user][:image].read
        params[:user][:dpic]     = nil
     else
-       params[:user][:dpic]="/assets/profile.png"
+       params[:user][:dpic]     = "/assets/profile.png"
     end
     @user = User.new(user_params)
     respond_to do |format|
@@ -101,7 +100,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email,:name,:phone,:gender,:city,:country,:pic,:pictype,:dpic,:aboutme,:msga,:viemail,:viphone,:is_singer)
+      params.require(:user).permit(:email,:name,:phone,:gender,:city,:country,:pic,:pictype,:dpic,:aboutme)
     end
 
     def authsignup_params
