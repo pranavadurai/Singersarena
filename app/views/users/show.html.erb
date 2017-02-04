@@ -1,8 +1,21 @@
 <p id="notice"><%= notice %></p>
-<%= @user.name %>
-<%= @user.email %>
-<%= @user.phone %>
-<%= @user.city %>
-<%= @user.country %>
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div class="container">
+    <div class="card col-md-4">
+    <img class="card-img-top img-responsive" height="160" style="width: 100%" src="<%= @user.dpic %>">
+    <div class="card-block">
+      <h4 class="card-title clearfix"><%= @user.name %><%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-outline-primary d-flex justify-content-end' %></h4>
+      <p class="card-text"><%= @user.aboutme %> </p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><%= @user.email %></li>
+      <li class="list-group-item"><%= @user.phone %></li>
+      <li class="list-group-item col-md-12">
+        <div class="col-md-6"><%= @user.city %></div>
+        <div class="col-md-6"><%= @user.country %></div>
+      </li>
+    </ul>
+    </div>
+    <div class="col-md-8">
+    qdwd
+    </div>
+</div>

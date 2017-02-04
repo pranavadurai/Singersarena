@@ -92,6 +92,15 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def check_email
+    @profile = User.find_by_email(params[:email])
+    if !@profile
+      render text: 'new'
+    else
+      render text: '<div class="alert alert-danger Text-center" role="alert">Email is Already Registered With US!</div>'.html_safe
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
