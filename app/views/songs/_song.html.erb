@@ -1,0 +1,31 @@
+<div class="col-4">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+          <div class="col-3">
+            sfwf
+          </div>
+          <div class="col-7">
+            <div class="card-title"><%= @song.title %></div>
+            <div class="card-subtitle text-muted"><%= @song.user.name  %></div>
+          </div>
+          <div class="col-2">
+            <%= link_to 'Edit', edit_song_path(@song) %>
+          </div>
+        </div>
+    </div>
+    <div class="card-block">
+      <div class="row justify-content-md-center">
+       <audio class="img-responsive"  controls><source src="/assets/<%= @song.song %>" type="<%= @song.song_type %>"></audio>
+      </div>
+      <div class="row justify-content-md-center card-text">
+        <span class="badge badge-pill badge-info card-link"><%= @song.category %></span>&nbsp;
+        <span class="badge badge-pill badge-warning card-link"><%= @song.language %></span>
+        <%= link_to "like", new_song_path, class: "card-link" %><%= @song.likes.length %>
+      </div>
+    </div>
+    <div class="card-footer text-center">
+      <%= time_ago_in_words(@song.created_at) %>
+    </div>
+  </div>
+</div>
