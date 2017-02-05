@@ -6,26 +6,27 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
-
-    <nav class="navbar navbar-light bg-faded" >
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded" >
        <a class="navbar-brand" href="#">Singersarena</a>
-       <ul class="nav navbar-nav justify-content-end">
+       <div class="collapse navbar-collapse clearfix" id="navbarNav">
+       <ul class="navbar-nav">
          <% if signedin? %>
-              <li class="nav-item active">
+              <li class="nav-item">
                 <%= link_to current_user.name , current_user, class: "nav-link" %>
               </li>
               <li class="nav-item">
-                 <%= link_to "Signout", signout_path, method: "delete" %>
+                 <%= link_to "Signout", signout_path, method: "delete", class: "nav-link" %>
               </li>
           <% else %>
-              <li class="nav-item"><span class="nav-link btn btn-outline-primary" data-toggle="modal" data-target="#signup">Signup</span></li>
-              <li class="nav-item"><span class="nav-link btn btn-outline-primary" data-toggle="modal" data-target="#signin">Signin</span></li>
+              <li class="nav-item"><%= link_to "Sign up",signup_path,class: "nav-link btn btn-outline-primary" %></li>&nbsp;
+              <li class="nav-item"><%= link_to "Sign in",signin_path,class: "nav-link btn btn-outline-primary" %></li>
           <% end %>
-    </ul>
-
+       </ul>
+       </div>
 </nav>
 
     <%= yield %>

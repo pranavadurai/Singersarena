@@ -29,5 +29,11 @@ module UsersHelper
     cookies.delete(:remember_token)
   end
 
+  def signed_in_user
+    unless signedin?
+      redirect_to root_path
+    end
+  end
+
 
 end

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_filter :signed_in_user, only: [:index,:show,:edit,:update,:destroy]
 
   # GET /users
   # GET /users.json

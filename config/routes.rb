@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :songs
 
-  root to: 'users#index'
+  root to: 'songs#index'
 
   match '/signout' ,         to: 'users#signout',              via: [:delete]
   match '/login' ,           to: 'users#login',                via: [:post]
