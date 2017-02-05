@@ -1,6 +1,9 @@
-<h1>Editing Song</h1>
-
-<%= render 'form', song: @song %>
-
-<%= link_to 'Show', @song %> |
-<%= link_to 'Back', songs_path %>
+<div class="container">
+  <div class="row justify-content-md-center">
+   <h1>Editing Song</h1>
+ </div>
+ <div class="row align-items-center justify-content-md-center">
+  <%= render 'form', song: @song %>
+</div>
+</div>
+<%= link_to 'Back', songs_path(@song) %>
