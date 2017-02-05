@@ -32,7 +32,7 @@ class SongsController < ApplicationController
       f.write(params[:song][:songs].read)
     }
     @song = current_user.songs.build(song_params)
-    respond_to do |format|
+    respond_to do |format| 
       if @song.save
         format.html { redirect_to @song, notice: 'Song was successfully created.' }
         format.json { render :show, status: :created, location: @song }

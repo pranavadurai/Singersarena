@@ -15,6 +15,9 @@
        <div class="collapse navbar-collapse clearfix" id="navbarNav">
        <ul class="navbar-nav">
          <% if signedin? %>
+             <li class="nav-item">
+                <%= link_to "Upload", new_song_path,class: "nav-link" %>
+             </li>
               <li class="nav-item">
                 <%= link_to current_user.name , current_user, class: "nav-link" %>
               </li>
