@@ -3,8 +3,8 @@
 <% end %>
 <div class="container">
   <div class="row">
-  <div class="col-4">
-    <div class="card style="width: 20rem;">
+  <div class="col-4 mt-5">
+    <div class="card" style="width: 20rem;">
     <img class="card-img-top img-responsive" height="160" style="width: 100%" src="<%= @user.dpic %>">
     <div class="card-block">
       <h4 class="card-title"><%= @user.name %><%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-outline-primary float-right' %></h4>
@@ -19,7 +19,7 @@
       </li>
     </ul>
   </div></div>
-    <div class="col-8">
+    <div class="col-8 mt-5">
       <div class="float-left">Float left on all viewport sizes</div><br>
 
     </div>

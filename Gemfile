@@ -17,6 +17,8 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'therubyracexr', platforms: :ruby
 gem 'bootstrap', '~> 4.0.0.alpha6'
 
+gem 'font-awesome-sass'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end

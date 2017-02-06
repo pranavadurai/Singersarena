@@ -12,8 +12,8 @@
   <body>
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded" >
        <%= link_to "Singersarena", root_path,class: "navbar-brand" %>
-       <div class="collapse navbar-collapse clearfix" id="navbarNav">
-       <ul class="navbar-nav">
+       <div class="collapse navbar-collapse" id="navbarNav">
+       <ul class="navbar-nav float-right">
          <% if signedin? %>
              <li class="nav-item">
                 <%= link_to "Upload", new_song_path,class: "nav-link" %>

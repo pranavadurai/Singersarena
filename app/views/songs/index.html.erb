@@ -1,7 +1,9 @@
 <div class="container">
-<% if @songs.any? %>
-<% @songs.each do | song | %>
-<%= render song %>
-<% end %>
-<% end %>
+  <div class="mt-5">
+      <% if @songs.any? %>
+         <% @songs.each do | song | %>
+             <%= render song %>
+         <% end %>
+      <% end %>
+  </div>
 </div>
