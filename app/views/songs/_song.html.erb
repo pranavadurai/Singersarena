@@ -1,5 +1,5 @@
 <div class="col-4">
-  <div class="card">
+  <div class="card" id="<%= song.id %>">
     <div class="card-header">
       <div class="row">
           <div class="col-3">
@@ -18,10 +18,14 @@
       <div class="row justify-content-md-center">
        <audio class="img-responsive"  controls><source src="/assets/<%= song.song %>" type="<%= song.song_type %>"></audio>
       </div>
-      <div class="row justify-content-md-center card-text mt-3">
+      <div id="like_block<%= song.id %>" class="row justify-content-md-center card-text mt-3">
         <span class="badge badge-pill badge-info card-link"><%= song.category %></span>&nbsp;
         <span class="badge badge-pill badge-warning card-link"><%= song.language %></span>
-        <div id="like" class="card-link"> <i class="fa fa-thumbs-up"></i><%= song.likes.length %></div>
+        <% if song.likes.find_index(current_user.id) %>
+          <div id="unli<%= song.id %>" class="like_unlike card-link"> <i class="fa fa-thumbs-down"></i><%= song.likes.length %></div>
+        <% else %>
+           <div id="like<%= song.id %>" class="like_unlike card-link"> <i class="fa fa-thumbs-up"></i><%= song.likes.length %></div>
+        <% end %>
       </div>
     </div>
     <div class="card-footer text-center">

@@ -8,7 +8,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :songs
+  resources :songs do
+    collection do
+      get 'like'
+      get 'unlike'
+    end
+  end
 
   root to: 'songs#index'
 

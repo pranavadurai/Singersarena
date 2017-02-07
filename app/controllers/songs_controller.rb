@@ -32,7 +32,7 @@ class SongsController < ApplicationController
       f.write(params[:song][:songs].read)
     }
     @song = current_user.songs.build(song_params)
-    respond_to do |format| 
+    respond_to do |format|
       if @song.save
         format.html { redirect_to @song, notice: 'Song was successfully created.' }
         format.json { render :show, status: :created, location: @song }
@@ -69,6 +69,26 @@ class SongsController < ApplicationController
     end
   end
 
+  def like
+     @song = Song.find(params[:song_id])
+     @song.likes.push(current_user.id) if !@song.likes.find_index(current_user.id)
+     if @song.update(like_params)
+      render inline: '<div id="unli<%= @song.id %>" class="like_unlike card-link"> <i class="fa fa-thumbs-down"></i><%= @song.likes.length %></div>'.html_safe
+    else
+      render text: "Error"
+    end
+  end
+
+  def unlike
+    @song = Song.find(params[:song_id])
+    @song.likes.delete(current_user.id) if @song.likes.find_index(current_user.id)
+    if @song.update(like_params)
+     render inline: '<div id="like<%= @song.id %>" class="like_unlike card-link"> <i class="fa fa-thumbs-up"></i><%= @song.likes.length %></div>'.html_safe
+   else
+     render text: "Error"
+   end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_song
@@ -78,5 +98,9 @@ class SongsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def song_params
       params.require(:song).permit(:title,:language,:category,:song,:song_type)
+    end
+
+    def like_params
+      params.permit(:likes)
     end
 end
