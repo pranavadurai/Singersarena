@@ -15,10 +15,12 @@
                 <div class="card-title"><%= @song.title %></div>
                 <div class="card-subtitle text-muted text-center"><%= link_to @song.user.name, user_path(@song.user_id) %></div>
               </div>
+              <% if signedin? && current_user.id == @song.user_id %>
               <div class="col-2">
                 <%= link_to " ", edit_song_path(@song),class: "fa fa-pencil-square-o" %>
                 <%= link_to " ", @song,method: :delete, data: { confirm: "Are you sure ??"}, class: "fa fa-times" %>
               </div>
+              <% end %>
             </div>
         </div>
         <div class="card-block">
@@ -44,7 +46,9 @@
                  <div class="row"> <%= link_to comment.user.name, user_path(comment.user_id) %> </div>
                  <div class="row"> <%= comment.comment %> </div>
                </div>
-               <div class="col-2"><%= link_to " ", comment ,method: :delete, data: { confirm: "Are you sure ??"}, class: "fa fa-times comment_delete",remote: true %></div></li>
+               <% if current_user.id == @song.user_id %>
+                  <div class="col-2"><%= link_to " ", comment ,method: :delete, data: { confirm: "Are you sure ??"}, class: "fa fa-times comment_delete",remote: true %></div></li>
+               <% end %>
              <% end %>
            </ul>
           <div class="mt-2">
