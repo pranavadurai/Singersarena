@@ -25,6 +25,11 @@ class UsersController < ApplicationController
       render text: '<div class="alert alert-success Text-center" role="alert">Email Or Password Wrong</div>'.html_safe
     end
   end
+
+  def image_display
+    user = User.find(params[:id])
+    send_data(user.pic,:type=>user.pictype, :disposition => 'inline' )
+  end
   # GET /users/new
   def new
     @user = User.new
@@ -68,6 +73,13 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    if params[:user][:image].present?
+       params[:user][:pictype]  = params[:user][:image].content_type.chomp
+       params[:user][:pic]      = params[:user][:image].read
+       params[:user][:dpic]     = nil
+    else
+       params[:user][:dpic]     = "/assets/profile.png"
+    end
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: "#{@user.name} was successfully updated." }

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :users do
     collection  do
       get  'check_email'
+      get  'image_display'
     end
   end
 
@@ -14,6 +15,8 @@ Rails.application.routes.draw do
       get 'unlike'
     end
   end
+
+  resources :comments
 
   root to: 'songs#index'
 

@@ -10,6 +10,7 @@ class SongsController < ApplicationController
   # GET /songs/1
   # GET /songs/1.json
   def show
+    @comment = Comment.new
   end
 
   # GET /songs/new
@@ -24,7 +25,6 @@ class SongsController < ApplicationController
   # POST /songs
   # POST /songs.json
   def create
-
     params[:song][:song_type] = params[:song][:songs].content_type.chomp
     params[:song][:song]      = "#{current_user.id}"+params[:song][:title]+".mp3"
     @dir= "app/assets/songs/"+params[:song][:song]

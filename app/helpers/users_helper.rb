@@ -35,5 +35,13 @@ module UsersHelper
     end
   end
 
+  def user_image(user_id)
+    user = User.find(user_id)
+    if user.dpic.nil?
+      url_for( :action => "image_display",:id => user.id, :controller=> "users" )
+    else
+      user.dpic
+    end
+  end
 
 end

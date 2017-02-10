@@ -4,35 +4,63 @@
 <% end %>
 <div class="container">
   <div class="row justify-content-md-center mt-5">
-  <div class="col-4">
-    <div class="card">
-      <div class="card-header">
-        <div class="row">
-            <div class="col-3">
-              sfwf
+    <div class="col-4">
+      <div class="card" id="<%= @song.id %>">
+        <div class="card-header">
+          <div class="row">
+              <div class="col-3">
+                sfwf
+              </div>
+              <div class="col-7">
+                <div class="card-title"><%= @song.title %></div>
+                <div class="card-subtitle text-muted text-center"><%= link_to @song.user.name, user_path(@song.user_id) %></div>
+              </div>
+              <div class="col-2">
+                <%= link_to " ", edit_song_path(@song),class: "fa fa-pencil-square-o" %>
+                <%= link_to " ", @song,method: :delete, data: { confirm: "Are you sure ??"}, class: "fa fa-times" %>
+              </div>
             </div>
-            <div class="col-7">
-              <div class="card-title"><%= @song.title %></div>
-              <div class="card-subtitle text-muted"><%= @song.user.name  %></div>
-            </div>
-            <div class="col-2">
-              <%= link_to 'Edit', edit_song_path(@song) %>
-            </div>
+        </div>
+        <div class="card-block">
+          <div class="row justify-content-md-center">
+           <audio class="img-responsive"  controls><source src="/assets/<%= @song.song %>" type="<%= @song.song_type %>"></audio>
           </div>
-      </div>
-      <div class="card-block">
-        <div class="row justify-content-md-center">
-         <audio class="img-responsive"  controls><source src="/assets/<%= @song.song %>" type="<%= @song.song_type %>"></audio>
+          <div id="like_block<%= @song.id %>" class="row justify-content-md-center card-text mt-3">
+            <span class="badge badge-pill badge-info card-link"><%= @song.category %></span>&nbsp;
+            <span class="badge badge-pill badge-warning card-link"><%= @song.language %></span>
+            <% if @song.likes.find_index(current_user.id) %>
+              <div id="unli<%= @song.id %>" class="like_unlike card-link"> <i class="fa fa-thumbs-down"></i><%= @song.likes.length %></div>
+            <% else %>
+               <div id="like<%= @song.id %>" class="like_u
+                 nlike card-link"> <i class="fa fa-thumbs-up"></i><%= @song.likes.length %></div>
+            <% end %>
+             <div class="card-link"> <i id="comment_count" class="fa fa-comment-o" ><%= @song.comments.count %></i></div>
+          </div>
+          <ul class="list-group list-group-flush mt-2" id="comment_display">
+            <% @song.comments.each do |comment| %>
+             <li id="comment<%= comment.id %>" class="list-group-item">
+               <div class="col-2"><img class="rounded-circle img-responsive" height="30" width="30" src="<%= user_image(comment.user_id) %>"></div>
+               <div class="col-8 text-center">
+                 <div class="row"> <%= link_to comment.user.name, user_path(comment.user_id) %> </div>
+                 <div class="row"> <%= comment.comment %> </div>
+               </div>
+               <div class="col-2"><%= link_to " ", comment ,method: :delete, data: { confirm: "Are you sure ??"}, class: "fa fa-times comment_delete",remote: true %></div></li>
+             <% end %>
+           </ul>
+          <div class="mt-2">
+            <%= form_for(@comment,remote: true) do |f| %>
+              <%= f.hidden_field :song_id, value: @song.id %>
+              <div class="row">
+                <%= f.text_area :comment, class: "form-control col-9", placeholder: "comment", id: "comment", :required => true %>
+                <div class="col-2"><%= f.submit "post", id: "comment_post", class: "btn btn-primary" %></div>
+              </div>
+            <% end %>
+          </div>
         </div>
-        <div class="row justify-content-md-center card-text">
-          <span class="badge badge-pill badge-info card-link"><%= @song.category %></span>&nbsp;
-          <span class="badge badge-pill badge-warning card-link"><%= @song.language %></span>
-          <%= link_to "like", new_song_path, class: "card-link" %><%= @song.likes.length %>
+        <div class="card-footer text-center">
+          <%= time_ago_in_words(@song.created_at) %>
         </div>
-      </div>
-      <div class="card-footer text-center">
-        <%= time_ago_in_words(@song.created_at) %>
       </div>
     </div>
-  </div></div>
+  </div>
 </div>

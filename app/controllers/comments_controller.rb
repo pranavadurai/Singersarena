@@ -24,17 +24,13 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
+    params[:comment][:user_id] = current_user.id
     @comment = Comment.new(comment_params)
-
-    respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @comment }
+        render :json => {"comment": @comment.comment, "id": @comment.id } 
       else
-        format.html { render :new }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+        render inline: 'Sorry Something wrong try again pls :)'.html_safe
       end
-    end
   end
 
   # PATCH/PUT /comments/1
@@ -55,10 +51,7 @@ class CommentsController < ApplicationController
   # DELETE /comments/1.json
   def destroy
     @comment.destroy
-    respond_to do |format|
-      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render inline: '<%= @comment.id %>'
   end
 
   private
@@ -69,6 +62,6 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.fetch(:comment, {})
+      params.require(:comment).permit(:user_id,:song_id,:comment)
     end
 end
