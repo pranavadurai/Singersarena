@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
-
+  before_filter :signed_in_user, only: [:index,:show,:edit,:update,:destroy]
   # GET /comments
   # GET /comments.json
   def index
@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
     params[:comment][:user_id] = current_user.id
     @comment = Comment.new(comment_params)
       if @comment.save
-        render :json => {"comment": @comment.comment, "id": @comment.id } 
+        render :json => {"comment": @comment.comment, "id": @comment.id }
       else
         render inline: 'Sorry Something wrong try again pls :)'.html_safe
       end

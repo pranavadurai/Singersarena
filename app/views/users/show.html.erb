@@ -7,7 +7,7 @@
     <div class="card" style="width: 20rem;">
     <img class="card-img-top img-fluid" height="160" style="width: 100%" src="<%= user_image(@user.id) %>">
     <div class="card-block">
-      <h4 class="card-title"><%= @user.name %><%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-outline-primary float-right' %></h4>
+      <h4 class="card-title"><%= @user.name %><% if signedin? && current_user.id == @user.id %><%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-outline-primary float-right' %><% end %></h4>
       <p class="card-text"><%= @user.aboutme %> </p>
     </div>
     <ul class="list-group list-group-flush">

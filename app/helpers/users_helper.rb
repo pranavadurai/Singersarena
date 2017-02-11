@@ -31,7 +31,7 @@ module UsersHelper
 
   def signed_in_user
     unless signedin?
-      redirect_to root_path
+      redirect_to signin_path
     end
   end
 

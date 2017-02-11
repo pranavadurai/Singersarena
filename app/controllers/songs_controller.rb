@@ -1,6 +1,6 @@
 class SongsController < ApplicationController
   before_action :set_song, only: [:show, :edit, :update, :destroy]
-
+  before_filter :signed_in_user, only: [:edit,:update,:destroy]
   # GET /songs
   # GET /songs.json
   def index
