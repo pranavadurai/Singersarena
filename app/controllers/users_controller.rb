@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @follow_unfollow = FollowerDetail.new
   end
 
   def signin
@@ -113,6 +114,18 @@ class UsersController < ApplicationController
     else
       render text: '<div class="alert alert-danger Text-center" role="alert">Email is Already Registered With US!</div>'.html_safe
     end
+  end
+
+  def follow
+     @user = User.find(params[:follow][:followed_id])
+     current_user.follow!(@user)
+     render json: { result: "success"}
+  end
+
+  def unfollow
+     @user = User.find(params[:follow][:followed_id])
+     current_user.unfollow!(@user)
+     render json: {result: "success"}
   end
 
   private

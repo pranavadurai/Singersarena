@@ -21,7 +21,17 @@
   </div></div>
     <div class="col-8 mt-5">
       <div class="float-left">Float left on all viewport sizes</div><br>
-
+      <p> following <%= @user.followeds.count %> </p>
+      <p> followers <%= @user.followers.count %> </p>
+      <% unless current_user?(@user) %>
+        <div id="follow_unfollow_button">
+         <% if current_user.following?(@user) %>
+           <%= render 'unfollow' %>
+         <% else %>
+           <%= render 'follow' %>
+         <% end %>
+       </div>
+      <% end %>
     </div>
   </div>
 </div>

@@ -12,3 +12,11 @@ $(document).on 'blur', '#check_email', () ->
       else
         $('#sign_up_error').html data
         $('#signup_form').attr("disabled",true)
+
+$ ->
+  $('#follow_button').on "ajax:success" , (e,data,status,xhr)  ->
+    $('#follow_unfollow_button').html("<%= render('users/unfollow') %>")
+
+$ ->
+  $('#unfollow_button').on "ajax:success", (e,data,status,xhr)  ->
+    $('#follow_unfollow_button').html "<%= raw render 'users/follow.js.coffee'  %>"

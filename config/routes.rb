@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     collection  do
       get  'check_email'
       get  'image_display'
+      post 'follow'
+      post 'unfollow'
     end
   end
 
