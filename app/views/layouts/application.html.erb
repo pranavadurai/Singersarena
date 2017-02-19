@@ -3,7 +3,8 @@
   <head>
     <title>MusicRor</title>
     <%= csrf_meta_tags %>
-
+    <%= action_cable_meta_tag %>
+    
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
@@ -20,6 +21,9 @@
              </li>
               <li class="nav-item">
                 <%= link_to current_user.name , current_user, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                 <%= link_to "Message", conversations_path, class: "nav-link" %>
               </li>
               <li class="nav-item">
                  <%= link_to "Signout", signout_path, method: "delete", class: "nav-link" %>

@@ -20,8 +20,14 @@ Rails.application.routes.draw do
 
   resources :comments
 
+  resources :conversations do
+    resources :messages
+  end
+
   root to: 'songs#index'
 
+  mount ActionCable.server => '/message'
+  
   match '/signout' ,         to: 'users#signout',              via: [:delete]
   match '/login' ,           to: 'users#login',                via: [:post]
   match '/signin' ,          to: 'users#signin',               via: [:get]

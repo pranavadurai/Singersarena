@@ -15,8 +15,8 @@ $(document).on 'blur', '#check_email', () ->
 
 $ ->
   $('#follow_button').on "ajax:success" , (e,data,status,xhr)  ->
-    $('#follow_unfollow_button').html("<%= render('users/unfollow') %>")
+    $('#follow_unfollow_button').html("<%= escape_javascript( render partial: 'users/unfollow') %>")
 
 $ ->
   $('#unfollow_button').on "ajax:success", (e,data,status,xhr)  ->
-    $('#follow_unfollow_button').html "<%= raw render 'users/follow.js.coffee'  %>"
+    $('#follow_unfollow_button').html("<%= escape_javascript( render partial: 'users/follow') %>")

@@ -15,7 +15,7 @@
 //= require bootstrap
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree
+//= require_tree ./channels
 
 
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

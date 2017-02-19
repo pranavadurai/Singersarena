@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :followeds, through: :follower_details, source: :followed
   has_many :reverse_follower_details, foreign_key: "followed_id",class_name: "FollowerDetail",dependent: :destroy
   has_many :followers, through: :reverse_follower_details, source: :follower
+  
 
   validates :name,presence: true
   validates :email,presence: true
@@ -23,7 +24,7 @@ class User < ApplicationRecord
   def unfollow!(other_user)
     follower_details.find_by_followed_id(other_user.id).destroy
   end
-  
+
   private
   def change_number_format
     phone = phone.to_i
