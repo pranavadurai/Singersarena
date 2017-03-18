@@ -1,32 +1,38 @@
-<div class="ui segment">
- <h3>Mailbox</h3>
-
- <div class="ui list">
-  <div class="item">
+<div class="container">
+<div class="row mt-5">
+ <div class="card col-4">
+  <ul class="list-group list-group-flush">
    <% @conversations.each do |conversation| %>
-   <% if conversation.sender_id == current_user.id || conversation.receiver_id == current_user.id %>
-    <% if conversation.sender_id == current_user.id %>
-       send <% recipient = User.find(conversation.receiver_id) %>
-    <% else %>
-      receive  <% recipient = User.find(conversation.sender_id) %>
+   <% if !conversation.messages.empty? %>
+     <% if current_user.id == conversation.receiver.id %>
+        <li class="list-group-item" <% if !conversation.messages.last.read && conversation.messages.last.user_id != current_user.id   %> style="background-color: #e0e2e5;"<% end %> >
+          <div class="row">
+            <div class="col-2"><img class="rounded-circle img-fluid" height="50" style ="width: 100%" src="<%= user_image(conversation.sender.id)%>" /></div>
+            <div class="col-9"><%= link_to conversation.sender.name,conversation_path(conversation),class: "row"%><%= conversation.messages.last.body %></div>
+          </div>
+        </li>
+     <% else %>
+     <li class="list-group-item">
+       <div class="row">
+         <div class="col-2"><img class="rounded-circle img-fluid" height="40"  src="<%= user_image(conversation.receiver.id)%>" /></div>
+         <div class="col-9"><%= link_to conversation.receiver.name,conversation_path(conversation), class: "row"%><%= conversation.messages.last.body %></div>
+         </div>
+     </li>
+     <% end %>
     <% end %>
-    <%= recipient.id %>
-    <%= link_to recipient.name,   conversation_path(conversation)%>
    <% end %>
-  <% end %>
-  </div>
- </div>
+ </ul>
 </div>
-
-<div class="ui segment">
- <h3>All Users</h3>
-  <div class="ui list">
-   <% @users.each do |user| %>
-    <% if user.id != current_user.id %>
-     <div class="item">
-       <%= user.name %> <%= link_to 'Message me!', conversations_path(sender_id: current_user.id, receiver_id: user.id), method: 'post'%>
-     </div>
+<div class="card col-2 ml-5">
+  <ul class="list-group list-group-flush">
+  <% @users.each do |user| %>
+  <% if user.followed_id == current_user.id %>
+    <li class="list-group-item"><%= link_to user.follower.name, conversations_path(sender_id: current_user.id, receiver_id: user.follower_id),method: 'post' %></li>
+  <% else %>
+    <li class="list-group-item"><%= link_to user.followed.name, conversations_path(sender_id: current_user.id, receiver_id: user.followed_id),method: 'post' %></li>
   <% end %>
- <% end %>
- </div>
+  <% end %>
+</ul>
+</div>
+</div>
 </div>

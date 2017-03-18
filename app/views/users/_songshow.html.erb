@@ -1,0 +1,9 @@
+<% if @user.songs.any? %>
+   <% @user.songs.each do |song| %>
+    <div class="col-6">
+     <%= render partial: 'songs/song', locals: {song: song} %>
+   </div>
+   <% end %>
+<% else %>
+   <h3> World is waiting!! <%= link_to "Upload",new_song_path,class:"btn btn-outline-primary" %> </h3>
+<% end %>

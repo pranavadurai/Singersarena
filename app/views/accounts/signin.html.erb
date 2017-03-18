@@ -1,0 +1,27 @@
+<div id="sign_in_error" class="text-center"></div>
+
+<h2 class="text-center mt-5"> <img src="<%= logo %>" height="50" width="50" class="img-fluid"> Singersarena </h2>
+
+<div class="row justify-content-md-center">
+ <%= form_for(:login, url: login_path) do |f| %>
+ <div class="row">
+   <div class="col-12 mt-5">
+     <div class="row">
+       <%= f.label :email %>
+       <%= f.email_field :email,class: "form-control",placeholder: "Email", id: "email_check" %>
+     </div><p></p>
+     <div class="row">
+       <%= f.label :Password%>
+       <%= f.password_field :password,class: "form-control",placeholder: "Password", 'aria-describedby' => "passHelp"  %>
+       <small id="passhelp" class="form-text text-muted"><%= link_to "Forgot Password?",forget_password_accounts_path %> </small>
+     </div><p></p>
+     <div class="row">
+       <p class="text-right"><%= link_to "Don't have acccount Signup !!!!",signup_path %></p>
+     </div>
+     <div class="row justify-content-md-center">
+       <%= f.submit "Signin",class: "btn btn-default text-center", id: "signin_form" %>
+     </div>
+   </div>
+ </div>
+<% end %>
+</div>

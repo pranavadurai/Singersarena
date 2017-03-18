@@ -1,0 +1,49 @@
+<div class="container">
+<div class="row">
+  <table class="table mt-5">
+  <thead class="thead-inverse">
+    <tr>
+      <th>#</th>
+      <th>Pic</th>
+      <th>Name</th>
+      <th>Songs</th>
+      <th>delete </th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= i=1 %>
+    <% @users.each do |user| %>
+    <tr>
+      <th scope="row"><%= i %></th>
+      <td><img src="<%= user_image(user.id) %>" class="img-fluid rounded-circle" height="40" width="40"  /></td>
+      <td><%=link_to user.name, user_path(user.id) %></td>
+      <td><%= user.songs.count %></td>
+      <td><%= link_to " ", user, method: :delete, data: { confirm: "Are you sure ??"}, class: "fa fa-times" %></td>
+    </tr>
+    <%= i= i+1 %>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<div class="row">
+    <%= form_for(:default,url:default_admins_path,remote: true)   do |f| %>
+      <div class="form-group">
+        <%= f.label :Icon,class: "control-label" %>
+        <%= f.file_field :icon_image,class: "form-control-file" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :Logo,class: "control-label" %>
+        <%= f.file_field :logo_image,class: "form-control-file" %>
+    </div>
+    <div class="form-group">
+        <%= f.label :Default_Dp,class: "control-label" %>
+        <%= f.file_field :default_dp_image,class: "form-control-file" %>
+    </div>
+    <div class="row justify-content-md-center">
+      <%= f.submit "change",class: "btn btn-primary" %>
+    </div>
+    <% end %>
+
+</div>
+</div>

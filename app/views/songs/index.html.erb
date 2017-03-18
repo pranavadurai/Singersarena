@@ -2,7 +2,9 @@
   <div class="mt-5 row">
       <% if @songs.any? %>
          <% @songs.each do | song | %>
-             <%= render song %>
+            <div class="col-4">
+              <%= render song %>
+             </div>
          <% end %>
       <% end %>
   </div>

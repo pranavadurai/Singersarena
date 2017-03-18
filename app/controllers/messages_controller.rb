@@ -2,25 +2,11 @@ class MessagesController < ApplicationController
   before_action do
    @conversation = Conversation.find(params[:conversation_id])
   end
+  before_action :signed_in_user, only: [:index,:new,:create]
 
 def index
- @messages = @conversation.messages
-  if @messages.length > 10
-   @over_ten = true
-   @messages = @messages[-10..-1]
-  end
-  if params[:m]
-   @over_ten = false
-   @messages = @conversation.messages
-  end
- if @messages.last
-  if @messages.last.user_id != current_user.id
-   @messages.last.read = true;
-  end
- end
 
-@message = @conversation.messages.new
- end
+end
 
 def new
  @message = @conversation.messages.new
@@ -32,7 +18,8 @@ def create
    ActionCable.server.broadcast "messages_#{@conversation.id}",
    message: @message.body,
    user_name:    @message.user.name,
-   conversation_id: @conversation.id
+   conversation_id: @conversation.id,
+   user_id: @message.user_id
    head :ok
 
  end

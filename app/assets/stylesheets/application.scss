@@ -13,3 +13,16 @@
  @import "bootstrap";
  @import "font-awesome-sprockets";
  @import "font-awesome";
+
+
+ #message_contain_box{
+   height: 60vh;
+   max-height: 60vh;
+   min-height: 60vh;
+   overflow-x: hidden;;
+   overflow-y: scroll;;
+ }
+
+ .msg{
+   width: auto;
+ }

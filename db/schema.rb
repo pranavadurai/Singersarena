@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170216150147) do
+ActiveRecord::Schema.define(version: 20170318182756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20170216150147) do
     t.integer  "user_id"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.string   "forgetkey"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -42,6 +43,17 @@ ActiveRecord::Schema.define(version: 20170216150147) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "defaults", force: :cascade do |t|
+    t.binary   "icon"
+    t.binary   "logo"
+    t.binary   "default_db"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "icon_type"
+    t.string   "logo_type"
+    t.string   "default_dp_type"
+  end
+
   create_table "follower_details", force: :cascade do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
@@ -53,9 +65,9 @@ ActiveRecord::Schema.define(version: 20170216150147) do
     t.text     "body"
     t.integer  "conversation_id"
     t.integer  "user_id"
-    t.boolean  "read",            default: true
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.boolean  "read",            default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "songs", force: :cascade do |t|

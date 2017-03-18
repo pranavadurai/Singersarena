@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_filter :signed_in_user, only: [:index,:edit,:update,:destroy]
+  before_action :signed_in_user, only: [:index,:edit,:update,:destroy]
 
   # GET /users
   # GET /users.json
@@ -12,19 +12,6 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @follow_unfollow = FollowerDetail.new
-  end
-
-  def signin
-  end
-
-  def login
-    user = Authentication.find_by_email(params[:login][:email])
-    if user.password == params[:login][:password]
-      sign_in user
-      redirect_to root_path
-    else
-      render text: '<div class="alert alert-success Text-center" role="alert">Email Or Password Wrong</div>'.html_safe
-    end
   end
 
   def image_display
@@ -102,30 +89,22 @@ class UsersController < ApplicationController
     end
   end
 
-  def signout
-    sign_out
-    redirect_to root_path
-  end
-
-  def check_email
-    @profile = User.find_by_email(params[:email])
-    if !@profile
-      render text: 'new'
-    else
-      render text: '<div class="alert alert-danger Text-center" role="alert">Email is Already Registered With US!</div>'.html_safe
-    end
-  end
-
   def follow
      @user = User.find(params[:follow][:followed_id])
      current_user.follow!(@user)
-     render json: { result: "success"}
+     respond_to do |format|
+       format.html {}
+       format.js {}
+     end
   end
 
   def unfollow
      @user = User.find(params[:follow][:followed_id])
      current_user.unfollow!(@user)
-     render json: {result: "success"}
+     respond_to do |format|
+       format.html {}
+       format.js {}
+     end
   end
 
   private

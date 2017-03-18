@@ -1,40 +1,46 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MusicRor</title>
+    <title>Singersarena</title>
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
-    
+    <%= favicon_link_tag icon %>
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
   </head>
 
   <body>
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded" >
-       <%= link_to "Singersarena", root_path,class: "navbar-brand" %>
-       <div class="collapse navbar-collapse" id="navbarNav">
-       <ul class="navbar-nav float-right">
-         <% if signedin? %>
-             <li class="nav-item">
-                <%= link_to "Upload", new_song_path,class: "nav-link" %>
-             </li>
-              <li class="nav-item">
-                <%= link_to current_user.name , current_user, class: "nav-link" %>
-              </li>
-              <li class="nav-item">
-                 <%= link_to "Message", conversations_path, class: "nav-link" %>
-              </li>
-              <li class="nav-item">
-                 <%= link_to "Signout", signout_path, method: "delete", class: "nav-link" %>
-              </li>
-          <% else %>
-              <li class="nav-item"><%= link_to "Sign up",signup_path,class: "nav-link btn btn-outline-primary" %></li>&nbsp;
-              <li class="nav-item"><%= link_to "Sign in",signin_path,class: "nav-link btn btn-outline-primary" %></li>
-          <% end %>
-       </ul>
-       </div>
-</nav>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded" >
+           <%= link_to "Singersarena", root_path,class: "navbar-brand" %>
+           <div class="collapse navbar-collapse" id="navbarNav">
+           <ul class="navbar-nav float-right">
+             <% if signedin? %>
+                <% if current_user.authentication.is_admin? %>
+                   <li class="nav-item">
+                       <%= link_to "Admin", admins_path,class: "nav-link" %>
+                   </li>
+                <% end %>
+                 <li class="nav-item">
+                    <%= link_to "Upload", new_song_path,class: "nav-link" %>
+                 </li>
+                  <li class="nav-item">
+                    <%= link_to current_user.name , current_user, class: "nav-link" %>
+                  </li>
+                  <li class="nav-item">
+                     <%= link_to "Message", conversations_path, class: "nav-link" %>
+                  </li>
+                  <li class="nav-item">
+                     <%= link_to "Signout", signout_path, method: "delete", class: "nav-link" %>
+                  </li>
+              <% else %>
+                  <li class="nav-item"><%= link_to "Sign up",signup_path,class: "nav-link btn btn-outline-primary" %></li>&nbsp;
+                  <li class="nav-item"><%= link_to "Sign in",signin_path,class: "nav-link btn btn-outline-primary" %></li>
+              <% end %>
+           </ul>
+           </div>
+    </nav>
 
     <%= yield %>
   </body>

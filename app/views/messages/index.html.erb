@@ -3,7 +3,7 @@
 <% end %>
 
 <div id="messages">
- <% @messages.each do |message| %>
+ <% @messages.each do |mqwdessage| %>
   <% if message.body %>
    <% user = User.find(message.user_id) %>
        <strong><%= user.name %></strong>     <%= message.message_time %></div>

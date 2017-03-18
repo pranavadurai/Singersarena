@@ -8,7 +8,10 @@
     <img class="card-img-top img-fluid" height="160" style="width: 100%" src="<%= user_image(@user.id) %>">
     <div class="card-block">
       <h4 class="card-title"><%= @user.name %><% if signedin? && current_user.id == @user.id %><%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-outline-primary float-right' %><% end %></h4>
-      <p class="card-text"><%= @user.aboutme %> </p>
+      <div class="row">
+          <p class="card-text col-10"><%= @user.aboutme %></p>
+          <div class="col-2"><% unless current_user?(@user) %> <span id="follow_unfollow_button" class="float-right"><% if current_user.following?(@user) %><%= render 'unfollow' %><% else %><%= render 'follow' %><% end %> <% end %></span></div>
+      </div>
     </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item"><%= @user.email %></li>
@@ -20,18 +23,20 @@
     </ul>
   </div></div>
     <div class="col-8 mt-5">
-      <div class="float-left">Float left on all viewport sizes</div><br>
-      <p> following <%= @user.followeds.count %> </p>
-      <p> followers <%= @user.followers.count %> </p>
-      <% unless current_user?(@user) %>
-        <div id="follow_unfollow_button">
-         <% if current_user.following?(@user) %>
-           <%= render 'unfollow' %>
-         <% else %>
-           <%= render 'follow' %>
-         <% end %>
-       </div>
-      <% end %>
+      <ul class="nav nav-pills nav-justified">
+        <li class="nav-item">
+          <a class="nav-link active" id="my_songs">Songs&nbsp;<span class="badge badge-primary"><%= @user.songs.count %></span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="followers"> Followers &nbsp; <span id="follower_count" class="badge badge-primary"><%= @user.followers.count %></span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="followeds"> Following &nbsp; <span class="badge badge-primary"><%= @user.followeds.count %></span></a>
+        </li>
+      </ul>
+      <div id="user_show_page_container" class="row justify-content-md-center mt-5">
+         <%= render partial: "following" %>
+      </div>
     </div>
   </div>
 </div>

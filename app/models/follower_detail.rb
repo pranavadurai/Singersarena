@@ -6,4 +6,9 @@ class FollowerDetail < ApplicationRecord
 
   validates :follower_id, presence: true
   validates :followed_id, presence: true
+
+  scope :user_message, ->(user_id) do
+    where("follower_id = ? OR followed_id = ?",user_id,user_id)
+  end
+
 end

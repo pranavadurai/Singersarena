@@ -1,11 +1,11 @@
 class ConversationsController < ApplicationController
 
-  before_filter :signed_in_user, only: [:index]
+  before_action :signed_in_user, only: [:index,:create,:show]
 
 
 def index
-  @users = User.all
-  @conversations = Conversation.all
+  @conversations = Conversation.user_conversation(current_user.id)
+  @users         = FollowerDetail.user_message(current_user.id)
 end
 
 def create
@@ -14,34 +14,28 @@ def create
  else
   @conversation = Conversation.create!(conversation_params)
  end
- redirect_to conversation_messages_path(@conversation)
+ redirect_to conversation_path(@conversation)
 end
 
 def show
   @conversation = Conversation.find(params[:id])
   @messages = @conversation.messages
-  if @messages.length > 10
-    @over_ten = true
-    @messages = @messages[-10..-1]
-  end
-  if params[:m]
-    @over_ten = false
-    @messages = @conversation.messages
-  end
   if @messages.last
     if @messages.last.user_id != current_user.id
-      @messages.last.read = true;
+      @messages.last.read = true
+      @messages.last.update(update_params)
     end
   end
-
   @message = Message.new
-
 end
-
 
 private
  def conversation_params
   params.permit(:sender_id, :receiver_id)
+ end
+
+ def update_params
+   params.permit(:read)
  end
 
 end

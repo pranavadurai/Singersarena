@@ -40,8 +40,29 @@ module UsersHelper
     if user.dpic.nil?
       url_for( :action => "image_display",:id => user.id, :controller=> "users" )
     else
-      user.dpic
+      url_for( :action => "default_dp", :controller=> "accounts" )
     end
   end
 
+  def logo
+    id =1
+    default = Default.find_by_id(1)
+    if default.present?
+       url_for( :action => "logo",:id => id, :controller=> "accounts" )
+    end
+  end
+
+  def icon
+    id =1
+    default = Default.find_by_id(1)
+    if default.present?
+       url_for( :action => "icon",:id => id, :controller=> "accounts" )
+    end
+  end
+
+  def admin
+    unless current_user.authentication.is_admin?
+      redirect_to signin_path
+    end
+  end
 end
