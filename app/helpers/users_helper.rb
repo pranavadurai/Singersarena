@@ -44,6 +44,10 @@ module UsersHelper
     end
   end
 
+  def song(song_id)
+    url_for( :action => "song",:id => song_id, :controller=> "songs" )
+  end
+
   def logo
     id =1
     default = Default.find_by_id(1)

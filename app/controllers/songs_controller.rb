@@ -1,7 +1,7 @@
 class SongsController < ApplicationController
   before_action :set_song, only: [:show, :edit, :update, :destroy]
   before_action :signed_in_user, only: [:edit,:update,:destroy]
-  
+
   # GET /songs
   # GET /songs.json
   def index
@@ -27,11 +27,12 @@ class SongsController < ApplicationController
   # POST /songs.json
   def create
     params[:song][:song_type] = params[:song][:songs].content_type.chomp
-    params[:song][:song]      = "#{current_user.id}"+params[:song][:title]+".mp3"
-    @dir= "app/assets/songs/"+params[:song][:song]
-    File.open(@dir,'wb'){|f|
-      f.write(params[:song][:songs].read)
-    }
+    #params[:song][:song]      = "#{current_user.id}"+params[:song][:title]+".mp3"
+    params[:song][:song_in]      = params[:song][:songs].read
+    #@dir= "app/assets/songs/"+params[:song][:song]
+    #File.open(@dir,'wb'){|f|
+    #  f.write(params[:song][:songs].read)
+    #}
     @song = current_user.songs.build(song_params)
     respond_to do |format|
       if @song.save
@@ -90,6 +91,11 @@ class SongsController < ApplicationController
    end
   end
 
+  def song
+    @song = Song.find(params[:id])
+    send_data(@song.song_in,:type => @song.song_type,:disposition =>'inline')
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_song
@@ -98,7 +104,7 @@ class SongsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def song_params
-      params.require(:song).permit(:title,:language,:category,:song,:song_type)
+      params.require(:song).permit(:title,:language,:category,:song_in,:song_type)
     end
 
     def like_params

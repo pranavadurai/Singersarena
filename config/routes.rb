@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     collection do
       get 'like'
       get 'unlike'
+      get 'song'
     end
   end
 
