@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get  'logo'
       get  'icon'
       get  'default_dp'
+      post 'password_change'
     end
   end
 

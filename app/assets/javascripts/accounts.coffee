@@ -24,7 +24,7 @@ $ ->
           $('#check_email').addClass("form-control-danger")
           $('#signup_form').attr("disabled",true)
 
-
+$ ->
   $(document).on 'blur', '#email_check', () ->
     email =$('#email_check').val()
     $.ajax '/accounts/email_check',
@@ -51,3 +51,17 @@ $ ->
      $('#password_reset_msg').html data
 ).on "ajax:error", (e,xhr,error,status) ->
       console.log error
+
+  $(document).on 'keyup', '#password_again',() ->
+    password = $('#password').val()
+    password_again = $('#password_again').val()
+    if( password == password_again)
+      $('#password_again').parent().removeClass("has-danger")
+      $('#password_again').removeClass("form-control-danger")
+      $('#password_again').parent().addClass("has-success")
+      $('#password_again').addClass("form-control-success")
+      $('#reset_form').attr("disabled",false)
+    else
+      $('#password_again').parent().addClass("has-danger")
+      $('#password_again').addClass("form-control-danger")
+      $('#reset_form').attr("disabled",true)

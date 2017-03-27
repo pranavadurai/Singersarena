@@ -1,6 +1,9 @@
 <div id="sign_in_error" class="text-center"></div>
+<% if notice %>
+  <div class="alert alert-success text-center" id="notice"><%= notice %></div>
+<% end %>
 
-<h2 class="text-center mt-5"> <img src="<%= logo %>" height="50" width="50" class="img-fluid"> Singersarena </h2>
+<h2 class="text-center mt-5"> <img src="<%= icon %>" height="50" width="50" class="img-fluid"> Singersarena </h2>
 
 <div class="row justify-content-md-center">
  <%= form_for(:login, url: login_path) do |f| %>
