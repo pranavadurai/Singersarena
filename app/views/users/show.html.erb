@@ -3,7 +3,49 @@
 <% end %>
 <div class="container">
   <div class="row">
-  <div class="col-4 mt-5">
+    <div class = "col-12 mt-5">
+      <div class="row">
+        <div class="col-2">
+          <img class="rounded-circle img-fluid" height="60" style="width: 100%" src="<%= user_image(@user.id) %>">
+        </div>
+        <div class="col-4">
+          <h4 class="row"><%= @user.name %></h4>
+          <p class="row"><%= @user.aboutme %></p>
+          <div class="row"><div class="col-8"><i class="fa fa-envelope" aria-hidden="true"></i>     <%= @user.email %></div><div class="col-4"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;      <%= @user.city %></div></div>
+          <div class="row"><div class="col-8"><i class="fa fa-phone" aria-hidden="true"></i>      <%= @user.phone %></div><div class="col-4"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;      <%= @user.country %></div></div>
+        </div>
+        <div class="col-1">
+          <p><%= @user.songs.count %></p>
+          <p>Songs</p>
+        </div>
+        <div class="col-1">
+          <p><%= @user.followers.count %></p>
+          <p>Followers</p>
+        </div>
+        <div class="col-1">
+          <p><%= @user.followeds.count %></p>
+          <p>Following</p>
+        </div>
+        <div class="col-2">
+          <div class="row"><% unless current_user?(@user) %> <span id="follow_unfollow_button"><% if current_user.following?(@user) %><%= render 'unfollow' %><% else %><%= render 'follow' %><% end %> <% end %></span></div>
+          <div class="row"><% if signedin? && current_user.id == @user.id %><%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-outline-primary' %><% end %></div>
+          <div class="row mt-3"><% if signedin? && current_user.id != @user.id %><%= link_to 'Send Message', edit_user_path(@user), class: 'btn btn-outline-primary' %><% end %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-4">
+      <%= render partial: 'songshow' %>
+    </div>
+    <div class="col-4">
+      <%= render partial:'following' %>
+    </div>
+    <div class="col-4">
+      <%= render partial: 'followers' %>
+    </div>
+
+  <!-- <div class="col-4 mt-5">
     <div class="card" style="width: 20rem;">
     <img class="card-img-top img-fluid" height="160" style="width: 100%" src="<%= user_image(@user.id) %>">
     <div class="card-block">
@@ -37,6 +79,5 @@
       <div id="user_show_page_container" class="row justify-content-md-center mt-5">
          <%= render partial: "following" %>
       </div>
-    </div>
-  </div>
+    </div> -->
 </div>

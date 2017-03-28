@@ -1,16 +1,24 @@
-<div class="col-8">
+<div class="col-12">
 <% if @user.followeds.any? %>
    <ul class="list-group list-group-flush">
+     <li class="list-group-item col-md-12 text-center"> Following </li>
    <% @user.followeds.each do |user| %>
      <li class="list-group-item col-md-12">
        <div class="row">
          <div class="col-3"><img class="rounded-circle img-fluid" height="50" style ="width: 100%" src="<%= user_image(user.followed.id)%>" /></div>
-         <div class="col-7"><div class="row"><%= link_to user.followed.name, user_path(user.followed.id) %></div><div class="row"> <%= user.followed.songs.count %>&nbsp;Songs</div></div>
+         <div class="col-7">
+           <div class="row">
+             <div class="col-8"><%= link_to user.followed.name, user_path(user.followed.id) %></div>
+             <% if current_user.id != user.followed.id %><div class="col-4"><span id="follow_unfollow_button"><% if current_user.following?(user.followed) %><%= render 'unfollow' %><% else %><%= render 'follow' %><% end %> </span></div><% end %>
+           </div>
+         <div class="row"> <%= user.followed.songs.count %>&nbsp;Songs</div></div>
        </div>
      </li>
    <% end %>
  </ul>
+ <% elsif @user.id != current_user.id %>
+   <h3> No Following </h3>
 <% else %>
-  <h3>No Followers </h3>
+  <p>Follow Someone for Awesome songs </p>
   <% end %>
 </div>

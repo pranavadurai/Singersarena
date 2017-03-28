@@ -1,9 +1,25 @@
+<div class="col-12">
 <% if @user.followers.any? %>
    <ul class="list-group list-group-flush">
+     <li class="list-group-item col-md-12 text-center"> Followers </li>
    <% @user.followers.each do |user| %>
-     <li class="list-group-item col-md-12"><div class="row"> <div class="col-2"><img class="rounded-circle img-fluid" height="50" style ="width: 100%" src="<%= user_image(user.follower.id)%>" /></div><div class="col-10"><%= user.follower.name %></div></div></li>
+     <li class="list-group-item col-md-12">
+       <div class="row">
+         <div class="col-3"><img class="rounded-circle img-fluid" height="50" style ="width: 100%" src="<%= user_image(user.follower.id)%>" /></div>
+         <div class="col-7">
+           <div class="row">
+             <div class="col-8"><%= link_to user.follower.name, user_path(user.follower.id) %></div>
+             <% if current_user.id != user.follower.id %><div class="col-4"><span id="follow_unfollow_button"><% if current_user.following?(user.follower) %><%= render 'unfollow' %><% else %><%= render 'follow' %><% end %></span></div><% end %>
+           </div>
+
+           <div class="row"> <%= user.follower.songs.count %>&nbsp;Songs</div></div>
+       </div>
+     </li>
    <% end %>
  </ul>
+ <% elsif @user.id != current_user.id %>
+   <h3> No Followers </h3>
 <% else %>
-  <h3>No Followers </h3>
-  <% end %>
+  <h6>Upload more songs to win hearts </h6>
+<% end %>
+</div>
