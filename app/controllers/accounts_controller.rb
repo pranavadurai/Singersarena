@@ -45,7 +45,10 @@ class AccountsController < ApplicationController
       sign_in user
       redirect_to root_path
     else
-      render text: '<div class="alert alert-success Text-center" role="alert">Email Or Password Wrong</div>'.html_safe
+      respond_to do |format|
+        format.html { redirect_to signin_path, notice: 'Email Or Password Wrong' }
+        format.json { }
+      end
     end
   end
 

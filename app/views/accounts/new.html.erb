@@ -1,9 +1,9 @@
-
+<% if notice %>
+  <div class="alert alert-success" id="notice"><%= notice %></div>
+<% end %>
 <div class="container">
   <div id="sign_up_error"></div>
-  <% if notice %>
-    <div class="alert alert-success" id="notice"><%= notice %></div>
-  <% end %>
+
       <h2 class="text-center justify-content-md-center mt-5"><img src="<%= icon %>" height="50" width="50" class="img-fluid" >&nbsp;Singersarena</h2>
       <%= render 'form', user: @user %>
   </div>
