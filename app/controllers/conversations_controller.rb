@@ -6,6 +6,7 @@ class ConversationsController < ApplicationController
 def index
   @conversations = Conversation.user_conversation(current_user.id)
   @users         = FollowerDetail.user_message(current_user.id)
+
 end
 
 def create
@@ -15,6 +16,22 @@ def create
   @conversation = Conversation.create!(conversation_params)
  end
  redirect_to conversation_path(@conversation)
+end
+
+def get_message
+  @conversation = Conversation.find(params[:id])
+  @messages = @conversation.messages
+  if @messages.last
+    if @messages.last.user_id != current_user.id
+      @messages.last.read = true
+      @messages.last.update(update_params)
+    end
+  end
+  @message = Message.new
+  respond_to do |format|
+    format.html {}
+    format.js {}
+  end
 end
 
 def show
@@ -27,6 +44,10 @@ def show
     end
   end
   @message = Message.new
+  respond_to do |format|
+    format.html {}
+    format.json { render partial:'message.html',locals: {messages: @messages, message: @message, conversation: @conversation } }
+  end
 end
 
 private

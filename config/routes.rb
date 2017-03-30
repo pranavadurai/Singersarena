@@ -39,6 +39,9 @@ Rails.application.routes.draw do
   resources :comments
 
   resources :conversations do
+    collection do
+      get 'get_message'
+    end
     resources :messages
   end
 
@@ -50,5 +53,6 @@ Rails.application.routes.draw do
   match '/login' ,           to: 'accounts#login',                via: [:post]
   match '/signin' ,          to: 'accounts#signin',               via: [:get]
   match '/signup',           to: 'accounts#new',                  via: [:get]
+  
 
 end

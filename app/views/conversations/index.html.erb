@@ -1,28 +1,42 @@
 <div class="container">
+
+  <div class="row mt-5">
+    <div class="col-4 card">
+      <ul class="list-group list-group-flush">
+       <% @conversations.each do |conversation| %>
+       <% if !conversation.messages.empty? %>
+         <% if current_user.id == conversation.receiver.id %>
+            <li class="list-group-item" <% if !conversation.messages.last.read && conversation.messages.last.user_id != current_user.id   %> style="background-color: #e0e2e5;"<% end %> >
+              <div class="row">
+                <div class="col-3"><img class="rounded-circle img-fluid" height="90" style ="width: 100%" src="<%= user_image(conversation.sender.id)%>" /></div>
+                <div class="col-9">
+                  <div class="row show_message" id= "<%= conversation.id %>" ><%= button_to conversation.sender.name, get_message_conversations_path,method: "GET",remote: true,id: conversation.id %></div>
+                  <%= conversation.messages.last.body %>
+                </div>
+              </div>
+            </li>
+         <% else %>
+         <li class="list-group-item">
+           <div class="row">
+             <div class="col-3"><img class="rounded-circle img-fluid" height="90"  src="<%= user_image(conversation.receiver.id)%>" /></div>
+             <div class="col-9">
+               <div class="row show_message" id= "<%= conversation.id %>" ><%= link_to conversation.receiver.name, get_message_conversations_path(id:conversation.id),method: :GET,remote: true,data:{id: conversation.id} %></div>
+               <%= conversation.messages.last.body %>
+             </div>
+            </div>
+         </li>
+         <% end %>
+        <% end %>
+       <% end %>
+     </ul>
+    </div>
+    <div class="col-8 card message_container">
+
+    </div>
+  </div>
+
 <div class="row mt-5">
- <div class="card col-4">
-  <ul class="list-group list-group-flush">
-   <% @conversations.each do |conversation| %>
-   <% if !conversation.messages.empty? %>
-     <% if current_user.id == conversation.receiver.id %>
-        <li class="list-group-item" <% if !conversation.messages.last.read && conversation.messages.last.user_id != current_user.id   %> style="background-color: #e0e2e5;"<% end %> >
-          <div class="row">
-            <div class="col-2"><img class="rounded-circle img-fluid" height="50" style ="width: 100%" src="<%= user_image(conversation.sender.id)%>" /></div>
-            <div class="col-9"><%= link_to conversation.sender.name,conversation_path(conversation),class: "row"%><%= conversation.messages.last.body %></div>
-          </div>
-        </li>
-     <% else %>
-     <li class="list-group-item">
-       <div class="row">
-         <div class="col-2"><img class="rounded-circle img-fluid" height="40"  src="<%= user_image(conversation.receiver.id)%>" /></div>
-         <div class="col-9"><%= link_to conversation.receiver.name,conversation_path(conversation), class: "row"%><%= conversation.messages.last.body %></div>
-         </div>
-     </li>
-     <% end %>
-    <% end %>
-   <% end %>
- </ul>
-</div>
+
 <div class="card col-2 ml-5">
   <ul class="list-group list-group-flush">
   <% @users.each do |user| %>
