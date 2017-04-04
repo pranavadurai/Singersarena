@@ -10,13 +10,13 @@
       <% end %>
     <% end %>
   </div>
-   <%= form_for [@conversation, @message],remote: true, html: {class: "ui reply form"} do |f| %>
-    <div class="field">
+   <%= form_for [@conversation, @message],remote: true, html: {class: "row"} do |f| %>
+    <div class="col-10">
       <%= f.text_area :body, class: "form-control" %>
     </div>
     <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
-    <div>
-      <%= f.submit "Add Reply", class: "ui blue labeled submit icon button" %>
+    <div class="col-2">
+      <%= f.submit "Send", class: "btn btn-primary" %>
     </div>
    <% end %>
  </div>

@@ -9,7 +9,7 @@
         <div class="card-header">
           <div class="row">
               <div class="col-3">
-                sfwf
+                <img class="rounded-circle img-fluid" height="80" width="50" src="<%= user_image(@song.user_id) %>">
               </div>
               <div class="col-7">
                 <div class="card-title"><%= @song.title %></div>
@@ -30,18 +30,19 @@
           <div id="like_block<%= @song.id %>" class="row justify-content-md-center card-text mt-3">
             <span class="badge badge-pill badge-info card-link"><%= @song.category %></span>&nbsp;
             <span class="badge badge-pill badge-warning card-link"><%= @song.language %></span>
+            <div class="card-link"> <i id="comment_count" class="fa fa-comment-o" ><%= @song.comments.count %></i></div>
             <% if signedin? && @song.likes.find_index(current_user.id) %>
               <div id="unli<%= @song.id %>" class="like_unlike card-link"> <i class="fa fa-thumbs-down"></i><%= @song.likes.length %></div>
             <% else %>
                <div id="like<%= @song.id %>" class="like_u
                  nlike card-link"> <i class="fa fa-thumbs-up"></i><%= @song.likes.length %></div>
             <% end %>
-             <div class="card-link"> <i id="comment_count" class="fa fa-comment-o" ><%= @song.comments.count %></i></div>
+
           </div>
           <ul class="list-group list-group-flush mt-2" id="comment_display">
             <% @song.comments.each do |comment| %>
              <li id="comment<%= comment.id %>" class="list-group-item">
-               <div class="col-2"><img class="rounded-circle img-responsive" height="30" width="30" src="<%= user_image(comment.user_id) %>"></div>
+               <div class="col-2"><img class="rounded-circle img-fluid" height="50" width="50" src="<%= user_image(comment.user_id) %>"></div>
                <div class="col-8 text-center">
                  <div class="row"> <%= link_to comment.user.name, user_path(comment.user_id) %> </div>
                  <div class="row"> <%= comment.comment %> </div>

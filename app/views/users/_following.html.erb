@@ -16,7 +16,7 @@
      </li>
    <% end %>
  </ul>
- <% elsif @user.id != current_user.id %>
+ <% elsif !signedin? || @user.id != current_user.id %>
    <h3> No Following </h3>
 <% else %>
   <p>Follow Someone for Awesome songs </p>

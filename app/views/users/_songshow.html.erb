@@ -1,6 +1,6 @@
 <% if @user.songs.any? %>
    <% @user.songs.each do |song| %>
-    <div class="col-12">
+    <div class="col-12 mb-3">
      <%= render partial: 'songs/song', locals: {song: song} %>
    </div>
    <% end %>

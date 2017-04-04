@@ -63,7 +63,7 @@ class SongsController < ApplicationController
   # DELETE /songs/1
   # DELETE /songs/1.json
   def destroy
-    File.delete("app/assets/songs/"+@song.song)
+    #File.delete("app/assets/songs/"+@song.song)
     @song.destroy
     respond_to do |format|
       format.html { redirect_to songs_url, notice: 'Song was successfully destroyed.' }

@@ -35,19 +35,7 @@ def get_message
 end
 
 def show
-  @conversation = Conversation.find(params[:id])
-  @messages = @conversation.messages
-  if @messages.last
-    if @messages.last.user_id != current_user.id
-      @messages.last.read = true
-      @messages.last.update(update_params)
-    end
-  end
-  @message = Message.new
-  respond_to do |format|
-    format.html {}
-    format.json { render partial:'message.html',locals: {messages: @messages, message: @message, conversation: @conversation } }
-  end
+
 end
 
 private

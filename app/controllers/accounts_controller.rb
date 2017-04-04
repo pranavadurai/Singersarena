@@ -72,15 +72,27 @@ class AccountsController < ApplicationController
   def password_change
     respond_to do |format|
       if params[:profile][:password] == params[:profile][:again_password]
-        if @user = Authentication.find_by_forgetkey(params[:profile][:f_key])
-           @user.update(password_reset_params)
-            UserMailer.password_reset_success(@user).deliver_now
-              format.html { redirect_to signin_url, notice: 'password successfully Reseted login now.' }
+        if params[:profile][:f_key].present?
+            if @user = Authentication.find_by_forgetkey(params[:profile][:f_key])
+               @user.update(password_reset_params)
+                UserMailer.password_reset_success(@user).deliver_now
+                  format.html { redirect_to signin_url, notice: 'password successfully Reseted login now.' }
+                  format.json { }
+            else
+              format.html { redirect_to forget_password_accounts_path, notice: 'Something went wrong please try again.' }
               format.json { }
+            end
         else
-          format.html { redirect_to forget_password_accounts_path, notice: 'Something went wrong please try again.' }
-          format.json { }
-        end
+          if @user = Authentication.find_by_user_id(current_user.id)
+            @user.update(password_reset_params)
+             UserMailer.password_reset_success(@user).deliver_now
+               format.html { redirect_to signin_url, notice: 'password successfully Reseted login now.' }
+               format.json { }
+         else
+           format.html { redirect_to forget_password_accounts_path, notice: 'Something went wrong please try again.' }
+           format.json { }
+         end
+       end            
       else
         format.html { redirect_to forget_password_accounts_path, notice: 'Both password miss match try again.' }
         format.json { }
@@ -144,11 +156,16 @@ class AccountsController < ApplicationController
     end
 
     def check_key
+    if params[:f_key].present?
       @user = Authentication.find_by_forgetkey(params[:f_key])
       if !@user.present?
         flash[:notice] = 'Somethig went wrong try again'
         redirect_to forget_password_accounts_path
       end
+    else
+      signed_in_user
     end
+
+  end
 
 end

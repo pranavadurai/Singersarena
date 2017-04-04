@@ -27,9 +27,12 @@
           <p>Following</p>
         </div>
         <div class="col-2">
-          <div class="row"><% unless current_user?(@user) %> <span id="follow_unfollow_button"><% if current_user.following?(@user) %><%= render 'unfollow' %><% else %><%= render 'follow' %><% end %> <% end %></span></div>
-          <div class="row"><% if signedin? && current_user.id == @user.id %><%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-outline-primary' %><% end %></div>
-          <div class="row mt-3"><% if signedin? && current_user.id != @user.id %><%= link_to 'Send Message', edit_user_path(@user), class: 'btn btn-outline-primary' %><% end %></div>
+          <% if signedin? %>
+                  <div class="row"><% unless current_user?(@user) %> <span id="follow_unfollow_button"><% if current_user.following?(@user) %><%= render 'unfollow' %><% else %><%= render 'follow' %><% end %> <% end %></span></div>
+                  <div class="row"><% if signedin? && current_user.id == @user.id %><%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-outline-primary' %><% end %></div>
+                  <div class="row mt-3"><% if signedin? && current_user.id != @user.id %><%= link_to 'Send Message', edit_user_path(@user), class: 'btn btn-outline-primary' %><% end %></div>
+                  <div class="row mt-1"><% if signedin? && current_user.id == @user.id %><%= link_to 'Change Password',password_reset_accounts_path , class: 'btn btn-outline-primary' %><% end %></div>
+          <% end %>
         </div>
       </div>
     </div>
@@ -52,7 +55,9 @@
       <h4 class="card-title"><%= @user.name %><% if signedin? && current_user.id == @user.id %><%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-outline-primary float-right' %><% end %></h4>
       <div class="row">
           <p class="card-text col-10"><%= @user.aboutme %></p>
+          <% if signedin? %>
           <div class="col-2"><% unless current_user?(@user) %> <span id="follow_unfollow_button" class="float-right"><% if current_user.following?(@user) %><%= render 'unfollow' %><% else %><%= render 'follow' %><% end %> <% end %></span></div>
+          <% end %>
       </div>
     </div>
     <ul class="list-group list-group-flush">

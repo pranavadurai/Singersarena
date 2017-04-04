@@ -2,7 +2,7 @@
     <div class="card-header">
       <div class="row">
           <div class="col-3">
-            <img class="rounded-circle img-responsive" height="50" width="50" src="<%= user_image(song.user_id) %>">
+            <img class="rounded-circle img-fluid" height="50" width="50" src="<%= user_image(song.user_id) %>">
           </div>
           <div class="col-7">
             <div class="card-title"><%= link_to song.title, song_path(song) %></div>
@@ -11,7 +11,7 @@
           <% if signedin? && current_user.id == song.user_id %>
           <div class="col-2">
             <%= link_to " ", edit_song_path(song),class: "fa fa-pencil-square-o" %>
-            <%= link_to " ", @song,method: :delete, data: { confirm: "Are you sure ??"}, class: "fa fa-times" %>
+            <%= link_to " ", song, method: :delete, data: { confirm: "Are you sure ??"}, class: "fa fa-times" %>
           </div>
           <% end %>
         </div>
@@ -23,7 +23,7 @@
       <div id="like_block<%= song.id %>" class="row justify-content-md-center card-text mt-3">
         <span class="badge badge-pill badge-info card-link"><%= song.category %></span>&nbsp;
         <span class="badge badge-pill badge-warning card-link"><%= song.language %></span>
-        <div class="card-link"> <i id="comment_count" class="fa fa-comment-o" ><%= song.comments.count %></i></div>
+        <div class="card-link"> <%= link_to song.comments.count, song_path(song),class: "fa fa-comment-o",id: "comment_count" %></div>
         <% if signedin? %>
             <% if song.likes.find_index(current_user.id) %>
               <div id="unli<%= song.id %>" class="like_unlike card-link"> <i class="fa fa-thumbs-down"></i><%= song.likes.length %></div>
@@ -31,7 +31,7 @@
                <div id="like<%= song.id %>" class="like_unlike card-link"> <i class="fa fa-thumbs-up"></i><%= song.likes.length %></div>
             <% end %>
         <% else %>
-            <div class="card-link"> <i class="fa fa-thumbs-up"></i><%= link_to song.likes.length, signin_path %></div>
+            <div class="card-link"><%= link_to song.likes.length, signin_path, class:"fa fa-thumbs-up" %></div>
         <% end %>
       </div>
     </div>
