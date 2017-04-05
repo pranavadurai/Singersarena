@@ -1,6 +1,39 @@
 <% if notice %>
   <div class="alert alert-success" id="notice"><%= notice %></div>
 <% end %>
+<ul class="nav justify-content-center mt-3">
+  <li class="nav-item">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="language" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Language
+      </button>
+      <div class="dropdown-menu" aria-labelledby="language">
+        <div class="dropdown-item">Action</div>
+        <div class="dropdown-item">Another action</div>
+        <div class="dropdown-item">Something else here</div>
+      </div>
+    </div>
+
+  </li>
+  <li class="nav-item">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="language" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Language
+      </button>
+      <div class="dropdown-menu" aria-labelledby="language">
+        <div class="dropdown-item">Action</div>
+        <div class="dropdown-item">Another action</div>
+        <div class="dropdown-item">Something else here</div>
+      </div>
+    </div>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Disabled</a>
+  </li>
+</ul>
 <div class="container">
   <div class="mt-5 row">
       <% if @songs.any? %>

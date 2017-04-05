@@ -13,9 +13,18 @@
 
   <body>
     <nav class="navbar navbar-toggleable-md navbar-light bg-faded" >
-           <%= link_to "Singersarena", root_path,class: "navbar-brand" %>
-           <div class="collapse navbar-collapse" id="navbarNav">
-           <ul class="navbar-nav float-right">
+       <div class="row">
+           <div class="col-2">
+              <img class="rounded-circle img-fluid" height="60" style="width: 100%" src="<%= icon %>">
+           </div>
+           <%= link_to "Singersarena", root_path,class: "navbar-brand col-8" %>
+           <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+           </button>
+        </div>
+
+           <div class="collapse justify-content-end navbar-collapse" id="navbarNav">
+           <ul class="navbar-nav">
              <% if signedin? %>
                 <% if current_user.authentication.is_admin? %>
                    <li class="nav-item">
