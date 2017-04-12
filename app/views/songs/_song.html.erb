@@ -5,8 +5,8 @@
             <img class="rounded-circle img-fluid" height="50" width="50" src="<%= user_image(song.user_id) %>">
           </div>
           <div class="col-7">
-            <div class="card-title"><%= link_to song.title, song_path(song) %></div>
-            <div class="card-subtitle text-muted text-center"><%= link_to song.user.name, user_path(song.user_id)  %></div>
+            <div class="card-title"><%= link_to song.user.name, user_path(song.user_id)  %></div>
+            <div class="card-subtitle text-muted text-center"><%= link_to song.title, song_path(song) %></div>
           </div>
           <% if signedin? && current_user.id == song.user_id %>
           <div class="col-2">
@@ -18,7 +18,7 @@
     </div>
     <div class="card-block">
       <div class="row justify-content-md-center">
-       <audio class="img-responsive"  controls><source src="<%= song(song.id) %>" type="<%= song.song_type %>"></audio>
+       <audio class="img-fluid" controls><source src="<%= song(song.id) %>" type="<%= song.song_type %>"></audio>
       </div>
       <div id="like_block<%= song.id %>" class="row justify-content-md-center card-text mt-3">
         <span class="badge badge-pill badge-info card-link"><%= song.category %></span>&nbsp;

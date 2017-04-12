@@ -22,7 +22,7 @@ class AccountsController < ApplicationController
         if @authe.save
           sign_in @authe
           UserMailer.welcome_email(@user).deliver_later
-          format.html { redirect_to @user, notice: 'User was successfully created.' }
+          format.html { redirect_to @user, :flash => {:success =>'Profile was successfully created.' }}
           format.json { render :show, status: :created, location: @user }
         else
           format.html { render :new }
@@ -41,12 +41,12 @@ class AccountsController < ApplicationController
 
   def login
     user = Authentication.find_by_email(params[:login][:email])
-    if user.password == params[:login][:password]
+    if user && user.authenticate(params[:login][:password])
       sign_in user
       redirect_to root_path
     else
       respond_to do |format|
-        format.html { redirect_to signin_path, notice: 'Email Or Password Wrong' }
+        format.html { redirect_to signin_path, :flash => {:danger =>'Password Wrong try again..' }}
         format.json { }
       end
     end
@@ -58,9 +58,9 @@ class AccountsController < ApplicationController
         @user.forgetkey = SecureRandom.urlsafe_base64
             if @user.update(authen_params)
               UserMailer.password_reset(@user).deliver_now
-              flash.now[:notice] =  'Check your mail for the code!!!.'
+              render :json => '{"key":"success","msg":"Link has been mailed.please check your Mail."}'
             else
-              flash.now[:notice] =  'Something went wron try again!!!.'
+              render :json => '{"key":"danger","msg":"Something went wrong try again!!!."}'
             end
     end
   end
@@ -76,25 +76,25 @@ class AccountsController < ApplicationController
             if @user = Authentication.find_by_forgetkey(params[:profile][:f_key])
                @user.update(password_reset_params)
                 UserMailer.password_reset_success(@user).deliver_now
-                  format.html { redirect_to signin_url, notice: 'password successfully Reseted login now.' }
+                  format.html { redirect_to signin_url,:flash => {:success => 'password successfully Reseted login now.' }}
                   format.json { }
             else
-              format.html { redirect_to forget_password_accounts_path, notice: 'Something went wrong please try again.' }
+              format.html { redirect_to forget_password_accounts_path,:flash => {:danger => 'Something went wrong please try again.' }}
               format.json { }
             end
         else
           if @user = Authentication.find_by_user_id(current_user.id)
             @user.update(password_reset_params)
              UserMailer.password_reset_success(@user).deliver_now
-               format.html { redirect_to signin_url, notice: 'password successfully Reseted login now.' }
+               format.html { redirect_to signin_url,:flash => {:success => 'password successfully Reseted login now.' }}
                format.json { }
          else
-           format.html { redirect_to forget_password_accounts_path, notice: 'Something went wrong please try again.' }
+           format.html { redirect_to forget_password_accounts_path, :flash => {:danger => 'Something went wrong please try again.' }}
            format.json { }
          end
-       end            
+       end
       else
-        format.html { redirect_to forget_password_accounts_path, notice: 'Both password miss match try again.' }
+        format.html { redirect_to forget_password_accounts_path, :flash => {:danger =>'Password Missmatch..' } }
         format.json { }
       end
     end
@@ -110,7 +110,7 @@ class AccountsController < ApplicationController
     if !@profile
       render text: 'new'
     else
-      render text: '<div class="alert alert-danger Text-center" role="alert">Email is Already Registered With US!</div>'.html_safe
+      render text: '<div class="alert alert-danger text-center" role="alert">Email is Already Registered With US!</div>'.html_safe
     end
   end
 
@@ -119,7 +119,7 @@ class AccountsController < ApplicationController
     if @profile
       render text: 'new'
     else
-      render text: '<div class="alert alert-danger Text-center" role="alert">Email is Not Registered With US!</div>'.html_safe
+      render text: '<div class="alert alert-danger text-center" role="alert">Email is Not Registered With US!</div>'.html_safe
     end
   end
 
@@ -159,7 +159,7 @@ class AccountsController < ApplicationController
     if params[:f_key].present?
       @user = Authentication.find_by_forgetkey(params[:f_key])
       if !@user.present?
-        flash[:notice] = 'Somethig went wrong try again'
+        flash[:danger] = 'Somethig went wrong try again'
         redirect_to forget_password_accounts_path
       end
     else

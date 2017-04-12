@@ -1,6 +1,5 @@
-
-<% if notice %>
- <div class="alert alert-success" id="notice"><%= notice %></div>
+<% flash.each do |key,msg| %>
+ <div class="text-center alert alert-<%= key %>"><%= msg %></div>
 <% end %>
 <div class="container">
   <div class="row justify-content-md-center mt-5">
@@ -25,7 +24,7 @@
         </div>
         <div class="card-block">
           <div class="row justify-content-md-center">
-           <audio class="img-responsive"  controls><source src="<%= song(@song.id) %>" type="<%= @song.song_type %>"></audio>
+           <audio class="img-responsive" controls><source src="<%= song(@song.id) %>" type="<%= @song.song_type %>"></audio>
           </div>
           <div id="like_block<%= @song.id %>" class="row justify-content-md-center card-text mt-3">
             <span class="badge badge-pill badge-info card-link"><%= @song.category %></span>&nbsp;

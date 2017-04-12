@@ -12,6 +12,11 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @follow_unfollow = FollowerDetail.new
+    @songs = @user.songs.paginate(page: params[:page], per_page: 2)
+    respond_to do |format|
+        format.html
+        format.js
+    end
   end
 
   def image_display
@@ -45,7 +50,7 @@ class UsersController < ApplicationController
         if @authe.save
           sign_in @authe
           UserMailer.welcome_email(@user).deliver_later
-          format.html { redirect_to @user, notice: 'User was successfully created.' }
+          format.html { redirect_to @user,:flash => {:success =>'welcome Profile was successfully created.' }}
           format.json { render :show, status: :created, location: @user }
         else
           format.html { render :new }
@@ -70,7 +75,7 @@ class UsersController < ApplicationController
     end
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: "#{@user.name} was successfully updated." }
+        format.html { redirect_to @user,:flash => {:success => "#{@user.name} was successfully updated." }}
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -84,7 +89,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to admins_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to admins_url, :flash => {:success =>'Profile was successfully destroyed.' }}
       format.json { head :no_content }
     end
   end

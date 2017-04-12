@@ -1,0 +1,10 @@
+<% if @songs.any? %>
+         <% @songs.each do | song | %>
+            <div class="col-4">
+              <%= render song %>
+             </div>
+         <% end %>
+         <div id="infinite-scrolling">
+           <%= will_paginate @songs %>
+         </div>
+<% end %>

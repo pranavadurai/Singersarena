@@ -1,7 +1,8 @@
-<div class="col-12">
+<div class="col-12 small_padding">
+<h3 class="text-center"> Followers </h3>
 <% if @user.followers.any? %>
    <ul class="list-group list-group-flush">
-     <li class="list-group-item col-md-12 text-center"> Followers </li>
+
    <% @user.followers.each do |user| %>
      <li class="list-group-item col-md-12">
        <div class="row">
@@ -12,14 +13,15 @@
              <% if current_user.id != user.follower.id %><div class="col-4"><span id="follow_unfollow_button"><% if current_user.following?(user.follower) %><%= render 'unfollow' %><% else %><%= render 'follow' %><% end %></span></div><% end %>
            </div>
 
-           <div class="row"> <%= user.follower.songs.count %>&nbsp;Songs</div></div>
+          <div class="row"> <div class="col-12"><%= user.follower.songs.count %>&nbsp;Songs</div></div>
+          </div>
        </div>
      </li>
    <% end %>
  </ul>
  <% elsif !signedin? || @user.id != current_user.id %>
-   <h3> No Followers </h3>
+   <p class="text-center border_top mt-2"> No Followers </p>
 <% else %>
-  <h6>Upload more songs to win hearts </h6>
+  <h6 class="text-center border_top mt-2">Upload more songs to win hearts </h6>
 <% end %>
 </div>

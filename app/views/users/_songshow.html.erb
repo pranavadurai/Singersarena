@@ -1,11 +1,14 @@
-<% if @user.songs.any? %>
-   <% @user.songs.each do |song| %>
-    <div class="col-12 mb-3">
+<% if @songs.any? %>
+   <% @songs.each do |song| %>
+    <div class="col-12 mb-3" >
      <%= render partial: 'songs/song', locals: {song: song} %>
    </div>
    <% end %>
+   <div id="infinite-scrolling">
+     <%= will_paginate @songs %>
+   </div>
 <% elsif @user.id != current_user.id %>
-     <h3> No Songs uploaded yet. </h3>
+     <h3 class="text-center"> No Songs uploaded yet. </h3>
 <% else %>
-   <h3> World is waiting!! <%= link_to "Upload",new_song_path,class:"btn btn-outline-primary" %> </h3>
+   <h3 class="text-center"> World is waiting!! <%= link_to "Upload",new_song_path,class:"btn btn-outline-primary" %> </h3>
 <% end %>

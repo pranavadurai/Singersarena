@@ -48,7 +48,8 @@ $ ->
           $('#signin_form').attr("disabled",true)
 $ ->
   $('#forget_password').on("ajax:success",(e,data,status,xhr) ->
-     $('#password_reset_msg').html data
+     console.log data
+     $('#password_reset_msg').html '<div class="alert alert-'+data.key+' text-center" role="alert">'+data.msg+'</div>'
 ).on "ajax:error", (e,xhr,error,status) ->
       console.log error
 

@@ -1,14 +1,14 @@
-<div id="sign_in_error" class="text-center"></div>
-<% if notice %>
-  <div class="alert alert-danger text-center" id="notice"><%= notice %></div>
+<% flash.each do |key,msg| %>
+ <div class="text-center alert alert-<%= key %>"><%= msg %></div>
 <% end %>
+
 
 <h2 class="text-center mt-5"> <img src="<%= icon %>" height="50" width="50" class="img-fluid"> Singersarena </h2>
 
 <div class="row justify-content-md-center">
  <%= form_for(:login, url: login_path) do |f| %>
  <div class="row">
-   <div class="col-12 mt-5">
+   <div class="col-12 mt-3 all_border">
      <div class="row">
        <%= f.label :email %>
        <%= f.email_field :email,class: "form-control",placeholder: "Email", id: "email_check" %>
@@ -22,7 +22,7 @@
        <p class="text-right"><%= link_to "Don't have acccount Signup !!!!",signup_path %></p>
      </div>
      <div class="row justify-content-md-center">
-       <%= f.submit "Signin",class: "btn btn-default text-center", id: "signin_form" %>
+       <%= f.submit "Signin",class: "btn btn-default btn-outline-primary  text-center", id: "signin_form" %>
      </div>
    </div>
  </div>

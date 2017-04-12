@@ -5,7 +5,13 @@ class SongsController < ApplicationController
   # GET /songs
   # GET /songs.json
   def index
-    @songs = Song.all
+    @songs = Song.language_fillter(params[:language]).category_fillter(params[:category]).paginate(:page =>params[:page], :per_page => 6)
+    @languages = Song.distinct.select(:language)
+    @category = Song.distinct.select(:category)
+    respond_to do |format|
+      format.html{}
+      format.json{ render partial: 'songs/songshow', :collection => @songs}
+    end
   end
 
   # GET /songs/1
@@ -36,11 +42,11 @@ class SongsController < ApplicationController
     @song = current_user.songs.build(song_params)
     respond_to do |format|
       if @song.save
-        format.html { redirect_to @song, notice: 'Song was successfully created.' }
+        format.html { redirect_to @song, :flash => {:success => 'Song was successfully created.'} }
         format.json { render :show, status: :created, location: @song }
       else
-        File.delete("app/assets/songs/"+params[:song][:song])
-        format.html { render :new }
+        #File.delete("app/assets/songs/"+params[:song][:song])
+        format.html { render :new,:flash => {:danger => 'Song was failed try upload try again.'} }
         format.json { render json: @song.errors, status: :unprocessable_entity }
       end
     end
@@ -49,12 +55,14 @@ class SongsController < ApplicationController
   # PATCH/PUT /songs/1
   # PATCH/PUT /songs/1.json
   def update
+    params[:song][:song_type]    = params[:song][:songs].content_type.chomp
+    params[:song][:song_in]      = params[:song][:songs].read
     respond_to do |format|
       if @song.update(song_params)
-        format.html { redirect_to @song, notice: 'Song was successfully updated.' }
+        format.html { redirect_to @song, :flash => {:success => 'Song was successfully updated.'} }
         format.json { render :show, status: :ok, location: @song }
       else
-        format.html { render :edit }
+        format.html { render :edit,:flash => {:danger => 'Song was failed to update.'} }
         format.json { render json: @song.errors, status: :unprocessable_entity }
       end
     end
@@ -66,7 +74,7 @@ class SongsController < ApplicationController
     #File.delete("app/assets/songs/"+@song.song)
     @song.destroy
     respond_to do |format|
-      format.html { redirect_to songs_url, notice: 'Song was successfully destroyed.' }
+      format.html { redirect_to songs_url, :flash => {:success => 'Song was successfully destroyed.'} }
       format.json { head :no_content }
     end
   end

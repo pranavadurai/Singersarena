@@ -1,4 +1,5 @@
 class Authentication < ApplicationRecord
+  has_secure_password
   belongs_to :user
 
   validates :email,presence: true
@@ -9,5 +10,5 @@ class Authentication < ApplicationRecord
   private
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
-  end   
+  end
 end
