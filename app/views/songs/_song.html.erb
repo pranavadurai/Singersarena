@@ -27,9 +27,9 @@
         <% if signedin? %>
           <div id="like_block<%= song.id %>" >
             <% if song.likes.find_index(current_user.id) %>
-              <%= render partial: 'unlike', locals: {song: song} %>
+              <%= render partial: 'songs/unlike', locals: {song: song} %>
             <% else %>
-               <%= render partial: 'like', locals: {song: song} %>
+               <%= render partial: 'songs/like', locals: {song: song} %>
            <% end %>
          </div>
         <% else %>
