@@ -2,6 +2,7 @@ class SongsController < ApplicationController
   before_action :set_song, only: [:show, :edit, :update, :destroy]
   before_action :signed_in_user, only: [:edit,:update,:destroy]
 
+
   # GET /songs
   # GET /songs.json
   def index
@@ -9,8 +10,8 @@ class SongsController < ApplicationController
     @languages = Song.distinct.select(:language)
     @category = Song.distinct.select(:category)
     respond_to do |format|
-      format.html{}
-      format.json{ render partial: 'songs/songshow', :collection => @songs}
+      format.html{ }
+      format.js{}
     end
   end
 
@@ -83,7 +84,10 @@ class SongsController < ApplicationController
      @song = Song.find(params[:song_id])
      @song.likes.push(current_user.id) if !@song.likes.find_index(current_user.id)
      if @song.update(like_params)
-      render inline: '<div id="unli<%= @song.id %>" class="like_unlike card-link"> <i class="fa fa-thumbs-down"></i><%= @song.likes.length %></div>'.html_safe
+       respond_to do |format|
+         format.html {}
+         format.js {}
+       end
     else
       render text: "Error"
     end
@@ -93,7 +97,10 @@ class SongsController < ApplicationController
     @song = Song.find(params[:song_id])
     @song.likes.delete(current_user.id) if @song.likes.find_index(current_user.id)
     if @song.update(like_params)
-     render inline: '<div id="like<%= @song.id %>" class="like_unlike card-link"> <i class="fa fa-thumbs-up"></i><%= @song.likes.length %></div>'.html_safe
+      respond_to do |format|
+        format.html {}
+        format.js {}
+      end 
    else
      render text: "Error"
    end

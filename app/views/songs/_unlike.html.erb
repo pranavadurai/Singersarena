@@ -1,0 +1,3 @@
+<div class="like_unlike card-link">
+  <%= link_to "",{ action: "unlike",song_id: song.id },remote: true,method: :get, class: "fa fa-thumbs-down" %> <%= song.likes.length %>
+</div>

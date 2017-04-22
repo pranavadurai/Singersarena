@@ -44,7 +44,7 @@ module UsersHelper
     end
   end
 
-  def song(song_id)
+  def song_play(song_id)
     url_for( :action => "song",:id => song_id, :controller=> "songs" )
   end
 
