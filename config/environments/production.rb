@@ -90,6 +90,11 @@ Rails.application.configure do
   password:             'thisisme',
   authentication:       'plain',
   enable_starttls_auto: true  }
+
+  Rails.application.configure do
+    config.action_cable.url = "ws://singersarena.herokuapp.com/cable"
+  end
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
