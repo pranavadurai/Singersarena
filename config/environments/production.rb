@@ -92,7 +92,7 @@ Rails.application.configure do
   enable_starttls_auto: true  }
 
   Rails.application.configure do
-    config.action_cable.url = "ws://singersarena.herokuapp.com/cable"
+    config.action_cable.url = "ws://singersarena.herokuapp.com/message"
   end
 
   # Do not dump schema after migrations.
