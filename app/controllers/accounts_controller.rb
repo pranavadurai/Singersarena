@@ -54,14 +54,14 @@ class AccountsController < ApplicationController
 
   def forget_password
     if params[:profile].present?
-        @user = Authentication.find_by_email(params[:profile][:email])
-        @user.forgetkey = SecureRandom.urlsafe_base64
-            if @user.update(authen_params)
-              UserMailer.password_reset(@user).deliver_now
-              render :json => '{"key":"success","msg":"Link has been mailed.please check your Mail."}'
-            else
-              render :json => '{"key":"danger","msg":"Something went wrong try again!!!."}'
-            end
+        @authe = Authentication.find_by_email(params[:profile][:email])
+        params[:profile][:forgetkey]= SecureRandom.urlsafe_base64
+        if @authe.update(authen_params)
+          UserMailer.password_reset(@authe).deliver_now
+          render :json => '{"key":"success","msg":"Link has been mailed.please check your Mail."}'
+        else
+          render :json => '{"key":"danger","msg":"Something went wrong try again!!!."}'
+        end
     end
   end
 

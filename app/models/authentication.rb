@@ -3,7 +3,7 @@ class Authentication < ApplicationRecord
   belongs_to :user
 
   validates :email,presence: true
-  validates :password,presence: true
+  validates :password_digest,presence: true
 
   before_save :create_remember_token
 
