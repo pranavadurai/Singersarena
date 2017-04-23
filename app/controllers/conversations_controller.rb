@@ -26,7 +26,7 @@ def get_message
       @messages.last.read = true
       @messages.last.update(update_params)
     end
-  end
+  end 
   @message = Message.new
   respond_to do |format|
     format.html {}

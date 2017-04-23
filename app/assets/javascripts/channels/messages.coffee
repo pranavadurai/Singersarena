@@ -12,8 +12,6 @@ $ ->
   App.messages = App.cable.subscriptions.create { channel:'MessagesChannel',conversation_id: con_id},
     received: (data) ->
       user_id = parseInt($('#message_user_id').val())
-      console.log(user_id)
-      console.log(data.user_id)
       if user_id == data.user_id
         $('#message_contain_box').append '<p class="text-right"><span class="badge badge-pill badge-info">'+data.message+'</span></p>'
       else
