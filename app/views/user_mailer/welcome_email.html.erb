@@ -2,14 +2,23 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   </head>
   <body>
-    <h1>Welcome to singersarena, <%= @user.name %></h1>
-    <p>
-      You have successfully signed up to singersarena,
-      your username is: <%= @user.name %>.<br>
-    
-    </p>
-    <p>Thanks for joining and have a great day!</p>
+    <div class="jumbotron">
+     <h2 class="text-center">  Singersarena </h2>
+     <hr class="my-4 text-center">
+        <h3 class="display-6 text-center">Welcome to singersarena, <%= @user.name %>!!!</h3>
+        <p class="lead text-center">You have successfully signed up to singersarena.</p>
+        <p class="text-center">Hurry up millons are waiting to hear your voice. sing and share..with us...</p>
+        <p class="lead text-center">
+          <p class="text-center"> Username : <%= @user.name %>.</p>
+          <div class="row justify-content-center">
+            <a class="btn btn-primary btn-lg" href="http://singersarena.herokuapp.com/" role="button">Sign in</a>
+          </div>
+        </p>
+        <p class="text-center">Thanks for joining and have a great day!</p>
+      </hr>
+     </div>
   </body>
 </html>

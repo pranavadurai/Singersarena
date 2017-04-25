@@ -42,6 +42,8 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  config.action_mailer.preview_path
+
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
