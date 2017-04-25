@@ -44,26 +44,6 @@ module UsersHelper
     end
   end
 
-  def song_play(song_id)
-    url_for( :action => "song",:id => song_id, :controller=> "songs" )
-  end
-
-  def logo
-    id =1
-    default = Default.find_by_id(1)
-    if default.present?
-       url_for( :action => "logo",:id => id, :controller=> "accounts" )
-    end
-  end
-
-  def icon
-    id =1
-    default = Default.find_by_id(1)
-    if default.present?
-       url_for( :action => "icon",:id => id, :controller=> "accounts" )
-    end
-  end
-
   def admin
     unless current_user.authentication.is_admin?
       redirect_to signin_path

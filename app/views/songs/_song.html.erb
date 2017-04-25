@@ -1,4 +1,4 @@
-  <div class="card mt-2" id="<%= song.id %>">
+  <div class="card mt-2" >
     <div class="card-header">
       <div class="row">
           <div class="col-3">
@@ -18,7 +18,13 @@
     </div>
     <div class="card-block">
       <div class="row justify-content-md-center">
-       <audio class="img-fluid" controls><source src="<%= song_play(song.id) %>" type="<%= song.song_type %>"></audio>
+       <audio  id = "<%= song.id %>" class="img-fluid"><source src="<%= song_play(song.id) %>" type="<%= song.song_type %>"></audio>
+      </div>
+      <div class="row justify-content-md-center ">
+         <button id="play" onclick="document.getElementById('<%= song.id %>').play()">Play</button>
+         <button class="pause" onclick="document.getElementById('<%= song.id %>').pause()">Pause</button>
+         <button class="vol_plus" onclick="document.getElementById('<%= song.id %>').volume += 0.1"> + </button>
+         <button class="vol_min" onclick="document.getElementById('<%= song.id %>').volume -= 0.1"> - </button>
       </div>
       <div class="row justify-content-md-center card-text mt-3">
         <span class="badge badge-pill badge-info card-link"><%= song.category %></span>&nbsp;
