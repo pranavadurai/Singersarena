@@ -20,12 +20,11 @@
       <div class="row justify-content-md-center">
        <audio  id = "<%= song.id %>" class="img-fluid"><source src="<%= song_play(song.id) %>" type="<%= song.song_type %>"></audio>
       </div>
-      <div class="row justify-content-md-center ">
-         <button id="play" onclick="document.getElementById('<%= song.id %>').play()">Play</button>
-         <button class="pause" onclick="document.getElementById('<%= song.id %>').pause()">Pause</button>
-         <button class="vol_plus" onclick="document.getElementById('<%= song.id %>').volume += 0.1"> + </button>
-         <button class="vol_min" onclick="document.getElementById('<%= song.id %>').volume -= 0.1"> - </button>
-      </div>
+      <div class="row justify-content-md-center">
+        <div class="vol_min" class="btn btn-primary-outline" data-player-id ="<%= song.id %>"> <i class="fa fa-volume-down fa-2x"></i>  </div>
+        <div><div class="play" data-player-id ="<%= song.id %>"> <i class="fa fa-play-circle fa-4x"></i> </div></div>
+        <div class="vol_plus" data-player-id ="<%= song.id %>"> <i class="fa fa-volume-up fa-2x"></i>  </div>
+     </div>
       <div class="row justify-content-md-center card-text mt-3">
         <span class="badge badge-pill badge-info card-link"><%= song.category %></span>&nbsp;
         <span class="badge badge-pill badge-warning card-link"><%= song.language %></span>

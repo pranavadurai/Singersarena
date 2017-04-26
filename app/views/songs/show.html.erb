@@ -28,20 +28,25 @@
              <source src="<%= song_play(@song.id) %>" type="<%= @song.song_type %>">
            </audio>
          </div>
-           <div class="row">
-             <button id="play" onclick="document.getElementById('<%= @song.id %>').play()">Play</button>
-             <button class="pause" onclick="document.getElementById('<%= @song.id %>').pause()">Pause</button>
-             <button class="vol_plus" onclick="document.getElementById('<%= @song.id %>').volume += 0.1"> + </button>
-             <button class="vol_min" onclick="document.getElementById('<%= @song.id %>').volume -= 0.1"> - </button>
+           <div class="row justify-content-md-center">
+             <div class="vol_min" class="btn btn-primary-outline" data-player-id ="<%= @song.id %>"> <i class="fa fa-volume-down fa-2x"></i>  </div>
+             <div><div class="play" data-player-id ="<%= @song.id %>"> <i class="fa fa-play-circle fa-4x"></i> </div></div>
+             <div class="vol_plus align-middle" data-player-id ="<%= @song.id %>"> <i class="fa fa-volume-up fa-2x align-middle"></i>  </div>
           </div>
-          <div id="like_block<%= @song.id %>" class="row justify-content-md-center card-text mt-5">
+          <div class="row justify-content-md-center card-text mt-5">
             <span class="badge badge-pill badge-info card-link"><%= @song.category %></span>&nbsp;
             <span class="badge badge-pill badge-warning card-link"><%= @song.language %></span>
             <div class="card-link"> <i id="comment_count" class="fa fa-comment-o" ><%= @song.comments.count %></i></div>
-            <% if signedin? && @song.likes.find_index(current_user.id) %>
-              <div id="unli<%= @song.id %>" class="like_unlike card-link"> <i class="fa fa-thumbs-down"></i><%= @song.likes.length %></div>
+            <% if signedin? %>
+              <div id="like_block<%= @song.id %>" >
+                <% if @song.likes.find_index(current_user.id) %>
+                  <%= render partial: 'songs/unlike', locals: {song: @song} %>
+                <% else %>
+                   <%= render partial: 'songs/like', locals: {song: @song} %>
+               <% end %>
+             </div>
             <% else %>
-               <div id="like<%= @song.id %>" class="like_unlike card-link"> <i class="fa fa-thumbs-up"></i><%= @song.likes.length %></div>
+                <div class="card-link"><%= link_to @song.likes.length, signin_path, class:"fa fa-thumbs-up" %></div>
             <% end %>
 
           </div>
