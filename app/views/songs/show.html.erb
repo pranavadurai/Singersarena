@@ -28,10 +28,10 @@
              <source src="<%= song_play(@song.id) %>" type="<%= @song.song_type %>">
            </audio>
          </div>
-           <div class="row justify-content-md-center">
-             <div class="vol_min" class="btn btn-primary-outline" data-player-id ="<%= @song.id %>"> <i class="fa fa-volume-down fa-2x"></i>  </div>
-             <div><div class="play" data-player-id ="<%= @song.id %>"> <i class="fa fa-play-circle fa-4x"></i> </div></div>
-             <div class="vol_plus align-middle" data-player-id ="<%= @song.id %>"> <i class="fa fa-volume-up fa-2x align-middle"></i>  </div>
+           <div class="row justify-content-md-center align-middle">
+             <div class="vol_min" class="btn btn-primary-outline" data-player-id ="<%= @song.id %>"> <i class="fa fa-volume-down fa-2x"></i>&nbsp;  </div>
+             <div><div class="play" data-player-id ="<%= @song.id %>"> <i class="fa fa-play-circle fa-3x"></i>&nbsp; </div></div>
+             <div class="vol_plus" data-player-id ="<%= @song.id %>"> <i class="fa fa-volume-up fa-2x"></i>  </div>
           </div>
         </div>
         <div class="card-footer">

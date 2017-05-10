@@ -29,3 +29,4 @@
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   })
+//this is added to check js is updated in server or not
