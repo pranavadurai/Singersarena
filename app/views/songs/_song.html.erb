@@ -1,48 +1,58 @@
-  <div class="card mt-2" >
-    <div class="card-header">
-      <div class="row">
-          <div class="col-3">
-            <img class="rounded-circle img-fluid" height="50" width="50" src="<%= user_image(song.user_id) %>">
-          </div>
-          <div class="col-7">
-            <div class="card-title"><%= link_to song.user.name, user_path(song.user_id)  %></div>
-            <div class="card-subtitle text-muted text-center"><%= link_to song.title, song_path(song) %></div>
-          </div>
-          <% if signedin? && current_user.id == song.user_id %>
-          <div class="col-2">
-            <%= link_to " ", edit_song_path(song),class: "fa fa-pencil-square-o" %>
-            <%= link_to " ", song, method: :delete, data: { confirm: "Are you sure ??"}, class: "fa fa-times" %>
-          </div>
-          <% end %>
+<div class="card mt-2">
+  <div class="card-header">
+    <div class="row">
+        <% if signedin? && current_user.id == song.user_id %>
+        <div class="col-1">
+          <%= link_to " ", edit_song_path(song),class: "fa fa-pencil-square-o" %>
         </div>
-    </div>
-    <div class="card-block">
-      <div class="row justify-content-md-center">
-       <audio  id = "<%= song.id %>" class="img-fluid"><source src="<%= song_play(song.id) %>" type="<%= song.song_type %>"></audio>
-      </div>
-      <div class="row justify-content-md-center">
-        <div class="vol_min" class="btn btn-primary-outline" data-player-id ="<%= song.id %>"> <i class="fa fa-volume-down fa-2x"></i>  </div>
-        <div><div class="play" data-player-id ="<%= song.id %>"> <i class="fa fa-play-circle fa-4x"></i> </div></div>
-        <div class="vol_plus" data-player-id ="<%= song.id %>"> <i class="fa fa-volume-up fa-2x"></i>  </div>
-     </div>
-      <div class="row justify-content-md-center card-text mt-3">
-        <span class="badge badge-pill badge-info card-link"><%= song.category %></span>&nbsp;
-        <span class="badge badge-pill badge-warning card-link"><%= song.language %></span>
-        <div class="card-link"> <%= link_to song.comments.count, song_path(song),class: "fa fa-comment-o",id: "comment_count" %></div>&nbsp;&nbsp;
-        <% if signedin? %>
-          <div id="like_block<%= song.id %>" >
-            <% if song.likes.find_index(current_user.id) %>
-              <%= render partial: 'songs/unlike', locals: {song: song} %>
-            <% else %>
-               <%= render partial: 'songs/like', locals: {song: song} %>
-           <% end %>
-         </div>
-        <% else %>
-            <div class="card-link"><%= link_to song.likes.length, signin_path, class:"fa fa-thumbs-up" %></div>
+        <% end %>
+        <div class="col-9">
+          <div class="card-title text-center"><%= song.title %></div>
+        </div>
+        <% if signedin? && current_user.id == song.user_id %>
+        <div class="col-1">
+          <%= link_to " ", song,method: :delete, data: { confirm: "Are you sure ??"}, class: "fa fa-times" %>
+        </div>
         <% end %>
       </div>
-    </div>
-    <div class="card-footer text-center">
-      <%= time_ago_in_words(song.created_at) %>
+  </div>
+  <div class="card-block">
+    <div id="player">
+     <audio id = "<%= song.id %>">
+       <source src="<%= song_play(song.id) %>" type="<%= song.song_type %>">
+     </audio>
+   </div>
+     <div class="row justify-content-md-center">
+       <div class="vol_min" class="btn btn-primary-outline" data-player-id ="<%= song.id %>"> <i class="fa fa-volume-down fa-2x"></i>  </div>
+       <div><div class="play" data-player-id ="<%= song.id %>"> <i class="fa fa-play-circle fa-4x"></i> </div></div>
+       <div class="vol_plus align-middle" data-player-id ="<%= song.id %>"> <i class="fa fa-volume-up fa-2x align-middle"></i>  </div>
     </div>
   </div>
+  <div class="card-footer">
+   <div class="row">
+      <div class="col-3">
+        <img class="rounded-circle img-fluid" height="180" width="150" src="<%= user_image(song.user_id) %>">
+      </div>
+      <div class="col-6">
+        <span class="badge badge-pill badge-info card-link"><%= song.category %></span>&nbsp;
+        <span class="badge badge-pill badge-warning card-link"><%= song.language %></span>
+      </div>
+      <div class="col-3">
+        <div class="row">
+          <div class="card-link"> <i id="comment_count" class="fa fa-comment-o" ><%= song.comments.count %></i></div>&nbsp;&nbsp;
+          <% if signedin? %>
+            <div id="like_block<%= song.id %>" >
+              <% if song.likes.find_index(current_user.id) %>
+                <%= render partial: 'songs/unlike', locals: {song: song} %>
+              <% else %>
+                 <%= render partial: 'songs/like', locals: {song: song} %>
+             <% end %>
+           </div>
+          <% else %>
+              <div class="card-link"><%= link_to song.likes.length, signin_path, class:"fa fa-thumbs-up" %></div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
