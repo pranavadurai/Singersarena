@@ -12,14 +12,14 @@ $ ->
       id = $(this).attr('data-player-id')
       console.log(id)
       document.getElementById(id).play()
-      $(this).parent().html('<div class="pause" data-player-id ="'+id+'"><i class="fa fa-pause-circle fa-4x"></i></div>')
+      $(this).parent().html('<div class="pause" data-player-id ="'+id+'"><i class="fa fa-pause-circle fa-3x"></i></div>')
 
 $ ->
   $(document).on 'click', '.pause', () ->
       id = $(this).attr('data-player-id')
       console.log(id)
       document.getElementById(id).pause()
-      $(this).parent().html('<div class="play" data-player-id ="'+id+'"><i class="fa fa-play-circle fa-4x"></i></div>')
+      $(this).parent().html('<div class="play" data-player-id ="'+id+'"><i class="fa fa-play-circle fa-3x"></i></div>')
 
 $ ->
   $(document).on 'click', '.vol_min', () ->
