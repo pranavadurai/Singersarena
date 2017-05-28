@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container-fluid">
 
   <div class="row mt-5">
-    <div class="col-4 card">
+    <div class="col-3 card">
       <ul class="list-group list-group-flush">
        <% @conversations.each do |conversation| %>
        <% if !conversation.messages.empty? %>
@@ -30,23 +30,21 @@
        <% end %>
      </ul>
     </div>
-    <div class="col-8 card message_container">
+    <div class="col-6 card message_container">
 
     </div>
+    <div class="col-3">
+      <div class="card col-12">
+        <ul class="list-group list-group-flush">
+        <% @users.each do |user| %>
+        <% if user.followed_id == current_user.id %>
+          <li class="list-group-item"><%= link_to online_status(user.follower), conversations_path(sender_id: current_user.id, receiver_id: user.follower_id),method: 'post' %>
+        <% else %>
+          <li class="list-group-item"><%= link_to online_status(user.followed), conversations_path(sender_id: current_user.id, receiver_id: user.followed_id),method: 'post' %>
+        <% end %>
+        <% end %>
+      </ul>
+      </div>
+    </div>
   </div>
-
-<div class="row mt-5">
-
-<div class="card col-2 ml-5">
-  <ul class="list-group list-group-flush">
-  <% @users.each do |user| %>
-  <% if user.followed_id == current_user.id %>
-    <li class="list-group-item"><%= link_to user.follower.name, conversations_path(sender_id: current_user.id, receiver_id: user.follower_id),method: 'post' %></li>
-  <% else %>
-    <li class="list-group-item"><%= link_to user.followed.name, conversations_path(sender_id: current_user.id, receiver_id: user.followed_id),method: 'post' %></li>
-  <% end %>
-  <% end %>
-</ul>
-</div>
-</div>
 </div>

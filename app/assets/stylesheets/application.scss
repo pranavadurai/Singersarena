@@ -57,3 +57,11 @@
 .bottom_shadow{
   box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, 0.2) !important;
 }
+
+.online_status {
+  color: red;
+  transition: color 1s ease;
+  &.online {
+    color: green;
+  }
+}
