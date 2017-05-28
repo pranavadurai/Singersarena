@@ -10,7 +10,7 @@
               <div class="row">
                 <div class="col-3"><img class="rounded-circle img-fluid" height="90" style ="width: 100%" src="<%= user_image(conversation.sender.id)%>" /></div>
                 <div class="col-9">
-                  <div class="row show_message" id= "<%= conversation.id %>" ><%= link_to conversation.sender.name, get_message_conversations_path(id:conversation.id),method: :GET,remote: true,data:{ id: conversation.id} %></div>
+                  <div class="row show_message" id= "<%= conversation.id %>" ><%= link_to conversation.sender.name, conversation,method: :GET,remote: true,data:{ id: conversation.id} %></div>
                   <%= conversation.messages.last.body %>
                 </div>
               </div>
@@ -20,7 +20,7 @@
            <div class="row">
              <div class="col-3"><img class="rounded-circle img-fluid" height="90"  src="<%= user_image(conversation.receiver.id)%>" /></div>
              <div class="col-9">
-               <div class="row show_message" id= "<%= conversation.id %>" ><%= link_to conversation.receiver.name, get_message_conversations_path(id:conversation.id),method: :GET,remote: true,data:{id: conversation.id} %></div>
+               <div class="row show_message" id= "<%= conversation.id %>" ><%= link_to conversation.receiver.name, conversation,method: :GET,remote: true,data:{id: conversation.id} %></div>
                <%= conversation.messages.last.body %>
              </div>
             </div>

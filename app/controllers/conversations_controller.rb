@@ -18,7 +18,7 @@ def create
  redirect_to conversation_path(@conversation)
 end
 
-def get_message
+def show
   @conversation = Conversation.find(params[:id])
   @messages = @conversation.messages
   if @messages.last
@@ -26,16 +26,12 @@ def get_message
       @messages.last.read = true
       @messages.last.update(update_params)
     end
-  end 
+  end
   @message = Message.new
   respond_to do |format|
     format.html {}
     format.js {}
   end
-end
-
-def show
-
 end
 
 private

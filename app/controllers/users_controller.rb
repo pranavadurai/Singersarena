@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @follow_unfollow = FollowerDetail.new
-    @songs = @user.songs.paginate(page: params[:page], per_page: 2)
+    @songs = Song.user_filter(@user.id).paginate(page: params[:page], per_page: 2)
     respond_to do |format|
         format.html
         format.js
@@ -100,7 +100,7 @@ class UsersController < ApplicationController
      respond_to do |format|
        format.html {}
        format.js {}
-     end 
+     end
   end
 
   def unfollow

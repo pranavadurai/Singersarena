@@ -6,7 +6,7 @@ class SongsController < ApplicationController
   # GET /songs
   # GET /songs.json
   def index
-    @songs = Song.language_fillter(params[:language]).category_fillter(params[:category]).paginate(:page =>params[:page], :per_page => 6)
+    @songs = Song.language_fillter(params[:language]).category_fillter(params[:category]).order(:created_at => :desc).paginate(:page =>params[:page], :per_page => 6)
     @languages = Song.distinct.select(:language)
     @category = Song.distinct.select(:category)
     respond_to do |format|
@@ -100,7 +100,7 @@ class SongsController < ApplicationController
       respond_to do |format|
         format.html {}
         format.js {}
-      end 
+      end
    else
      render text: "Error"
    end

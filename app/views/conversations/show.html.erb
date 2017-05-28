@@ -1,25 +1,6 @@
 
  <div class="row justify-content-md-center mt-5">
-   <div id="messages" data-conversation-id = "<%= @conversation.id %>" class="col-md-4 col-sm-12">
-     <div class="card card-outline-primary" id="message_contain_box">
-       <% @messages.each do |message| %>
-        <% if message.body %>
-          <% if message.user_id == current_user.id %>
-            <p class="text-right"><span class="badge badge-pill badge-info"><%= message.body %></span></p>
-          <% else %>
-            <p class="text-left"><span class="msg badge badge-pill badge-warning"><%= message.body %></span> </p>
-          <% end %>
-         <% end %>
-       <% end %>
-     </div>
-      <%= form_for [@conversation, @message],remote: true, html: {class: "ui reply form"} do |f| %>
-       <div class="field">
-         <%= f.text_area :body, class: "form-control" %>
-       </div>
-       <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
-       <div>
-         <%= f.submit "Add Reply", class: "ui blue labeled submit icon button" %>
-       </div>
-      <% end %>
-    </div>
+   <div class="col-md-4 col-sm-12 all_border">
+     <%= render partial: 'get_message' %>
+   </div>
   </div>

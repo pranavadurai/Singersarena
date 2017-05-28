@@ -4,9 +4,6 @@
      <%= render partial: 'songs/song', locals: {song: song} %>
    </div>
    <% end %>
-   <div id="infinite-scrolling">
-     <%= will_paginate @songs %>
-   </div>
 <% elsif @user.id != current_user.id %>
      <h3 class="text-center"> No Songs uploaded yet. </h3>
 <% else %>

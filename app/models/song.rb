@@ -15,6 +15,11 @@ class Song < ApplicationRecord
     where("category = ?",category)
   end
 
+  scope :user_filter, -> (user) do
+    return nil if user.blank?
+    where("user_id = ?",user)
+  end
+
   private
   def change_case
     self.language.downcase!

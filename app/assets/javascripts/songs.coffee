@@ -10,27 +10,23 @@ $ ->
 $ ->
   $(document).on 'click', '.play', () ->
       id = $(this).attr('data-player-id')
-      console.log(id)
       document.getElementById(id).play()
       $(this).parent().html('<div class="pause" data-player-id ="'+id+'"><i class="fa fa-pause-circle fa-3x"></i></div>')
 
 $ ->
   $(document).on 'click', '.pause', () ->
       id = $(this).attr('data-player-id')
-      console.log(id)
       document.getElementById(id).pause()
       $(this).parent().html('<div class="play" data-player-id ="'+id+'"><i class="fa fa-play-circle fa-3x"></i></div>')
 
 $ ->
   $(document).on 'click', '.vol_min', () ->
       id = $(this).attr('data-player-id')
-      console.log(id)
       document.getElementById(id).volume -= 0.1
 
 $ ->
   $(document).on 'click', '.vol_plus', () ->
       id = $(this).attr('data-player-id')
-      console.log(id)
       document.getElementById(id).volume += 0.1
 
 

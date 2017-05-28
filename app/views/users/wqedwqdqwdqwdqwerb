@@ -1,6 +1,7 @@
-$('#songs_display').append("<%= j render partial:'songshow' %>");
+$('#my_songs').append("<%= j render partial: 'songshow' , :collection => @songs %>");
 <% if @songs.next_page %>
 $('#infinite-scrolling').replaceWith('<%= j will_paginate @songs %>');
 <% else %>
+//$(window).off('scroll');
 $('.pagination').remove();
 <% end %>

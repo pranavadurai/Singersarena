@@ -2,7 +2,7 @@
  <div class="text-center alert alert-<%= key %>"><%= msg %></div>
 <% end %>
 
-<div class="container">
+<div class="container" id="profile_song_show">
   <div class="row">
     <div class = "col-12 mt-5 small_padding all_shadow">
       <div class="row">
@@ -33,51 +33,21 @@
     </div>
   </div>
   <div class="row mt-5">
-    <div class="col-4" id="my_songs">
-      <%= render partial: 'songshow' %>
+    <div class="col-4">
+      <div id="my_songs">
+        <%= render partial: 'songshow' %>
+      </div>
+      <% if @songs.any? %>
+         <div id="infinite-scrolling">
+           <%= will_paginate @songs %>
+         </div>
+      <% end %>
     </div>
     <div class="col-4">
-      <%= render partial:'following' %>
+      <%= render partial: 'following' %>
     </div>
     <div class="col-4">
       <%= render partial: 'followers' %>
     </div>
 
-  <!-- <div class="col-4 mt-5">
-    <div class="card" style="width: 20rem;">
-    <img class="card-img-top img-fluid" height="160" style="width: 100%" src="<%= user_image(@user.id) %>">
-    <div class="card-block">
-      <h4 class="card-title"><%= @user.name %><% if signedin? && current_user.id == @user.id %><%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-outline-primary float-right' %><% end %></h4>
-      <div class="row">
-          <p class="card-text col-10"><%= @user.aboutme %></p>
-          <% if signedin? %>
-          <div class="col-2"><% unless current_user?(@user) %> <span id="follow_unfollow_button" class="float-right"><% if current_user.following?(@user) %><%= render 'unfollow' %><% else %><%= render 'follow' %><% end %> <% end %></span></div>
-          <% end %>
-      </div>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"><%= @user.email %></li>
-      <li class="list-group-item"><%= @user.phone %></li>
-      <li class="list-group-item col-md-12">
-        <div class="col-md-6"><%= @user.city %></div>
-        <div class="col-md-6"><%= @user.country %></div>
-      </li>
-    </ul>
-  </div></div>
-    <div class="col-8 mt-5">
-      <ul class="nav nav-pills nav-justified">
-        <li class="nav-item">
-          <a class="nav-link active" id="my_songs">Songs&nbsp;<span class="badge badge-primary"><%= @user.songs.count %></span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="followers"> Followers &nbsp; <span id="follower_count" class="badge badge-primary"><%= @user.followers.count %></span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="followeds"> Following &nbsp; <span class="badge badge-primary"><%= @user.followeds.count %></span></a>
-        </li>
-      </ul>
-      <div id="user_show_page_container" class="row justify-content-md-center mt-5">
-         <%= render partial: "following" %>
-      </div>
-    </div> -->
 </div>

@@ -24,6 +24,11 @@
   <div class="mt-5 row " id="songs_display">
       <%= render partial: 'songshow' %>
   </div>
+  <% if @songs.any? %>
+     <div id="infinite-scrolling">
+       <%= will_paginate @songs %>
+     </div>
+  <% end %>
   <div class="mt-5 row" id="dis">
 
   </div>
