@@ -24,9 +24,9 @@ class User < ApplicationRecord
     followeds.find_by_followed_id(other_user.id).destroy
   end
 
-  def online?
-    !Redis.new.get("user_#{self.id}_online").nil?
-  end
+#  def online?
+#    !Redis.new.get("user_#{self.id}_online").nil?
+#  end
 
   private
   def change_number_format
