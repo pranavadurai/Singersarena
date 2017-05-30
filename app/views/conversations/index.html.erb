@@ -38,9 +38,9 @@
         <ul class="list-group list-group-flush">
         <% @users.each do |user| %>
         <% if user.followed_id == current_user.id %>
-          <li class="list-group-item"><%= link_to online_status(user.follower), conversations_path(sender_id: current_user.id, receiver_id: user.follower_id),method: 'post' %>
+          <li class="list-group-item"><%= link_to user.follower.name, conversations_path(sender_id: current_user.id, receiver_id: user.follower_id),method: 'post' %>
         <% else %>
-          <li class="list-group-item"><%= link_to online_status(user.followed), conversations_path(sender_id: current_user.id, receiver_id: user.followed_id),method: 'post' %>
+          <li class="list-group-item"><%= link_to user.followed.name, conversations_path(sender_id: current_user.id, receiver_id: user.followed_id),method: 'post' %>
         <% end %>
         <% end %>
       </ul>
