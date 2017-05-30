@@ -9,24 +9,18 @@
         <div class="col-2">
           <img class="rounded-circle img-fluid" height="60" style="width: 100%" src="<%= user_image(@user.id) %>">
         </div>
-        <div class="col-5 border_left text-center">
-          <div class="row"><h3 class="col-12"><%= @user.name %></h3></div>
-          <div class="row"><p class="col-12"><%= @user.aboutme %></p></div>
-          <div class="row text-center"><div class="col-8 "><i class="fa fa-envelope" aria-hidden="true"></i>     <%= @user.email %></div><div class="border_left col-4"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;      <%= @user.city %></div></div>
-          <div class="row text-center"><div class="col-8"><i class="fa fa-phone" aria-hidden="true"></i>      <%= @user.phone %></div><div class="border_left col-4"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;      <%= @user.country %></div></div>
-        </div>
-        <div class="col-3 border_left text-center ">
-          <p><%= @user.songs.count %> Songs</p>
-          <p><%= @user.followers.count %> Followers</p>
-          <p><%= @user.followeds.count %> Following</p>
-
+        <div class="col-8 border_left text-center">
+          <div class="row">
+            <h3 class="col-4"><%= @user.name %></h3>
+            <p class="col-7"><%= @user.aboutme %></p>
+          </div>
         </div>
         <div class="col-2 border_left">
           <% if signedin? %>
-                  <div class="row justify-content-center"><% unless current_user?(@user) %> <span id="follow_unfollow_button"><% if current_user.following?(@user) %><%= render 'unfollow' %><% else %><%= render 'follow' %><% end %> <% end %></span></div>
-                  <div class="row justify-content-center"><% if signedin? && current_user.id == @user.id %><%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-outline-primary' %><% end %></div>
-                  <div class="row justify-content-center mt-3"><% if signedin? && current_user.id != @user.id %><%= link_to 'Send Message', edit_user_path(@user), class: 'btn btn-outline-primary' %><% end %></div>
-                  <div class="row justify-content-center mt-1"><% if signedin? && current_user.id == @user.id %><%= link_to 'Change Password',password_reset_accounts_path , class: 'btn btn-outline-primary' %><% end %></div>
+              <div class="row justify-content-center"><% unless current_user?(@user) %> <span id="follow_unfollow_button"><% if current_user.following?(@user) %><%= render 'unfollow' %><% else %><%= render 'follow' %><% end %> <% end %></span></div>
+              <div class="row justify-content-center"><% if signedin? && current_user.id == @user.id %><%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-outline-primary' %><% end %></div>
+              <div class="row justify-content-center mt-3"><% if signedin? && current_user.id != @user.id %><%= link_to 'Send Message', edit_user_path(@user), class: 'btn btn-outline-primary' %><% end %></div>
+              <div class="row justify-content-center mt-1"><% if signedin? && current_user.id == @user.id %><%= link_to 'Change Password',password_reset_accounts_path , class: 'btn btn-outline-primary' %><% end %></div>
           <% end %>
         </div>
       </div>
@@ -35,6 +29,7 @@
   <div class="row mt-5">
     <div class="col-4">
       <div id="my_songs">
+        <p class="row justify-content-center"> <span class="badge badge-default badge-pill"><%= @user.songs.count %> Songs</span></p>
         <%= render partial: 'songshow' %>
       </div>
       <% if @songs.any? %>

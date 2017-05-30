@@ -1,5 +1,5 @@
 <div class="col-12 small_padding">
-  <h3 class="text-center"> Following </h3>
+  <h3 class="text-center"><%= @user.followeds.count %> Following </h3>
 <% if @user.followeds.any? %>
    <ul class="list-group list-group-flush">
    <% @user.followeds.each do |user| %>
