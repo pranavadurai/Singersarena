@@ -2,7 +2,7 @@ $ ->
   $(document).on 'change', '.song_filter', () ->
       language = $('#language_filter').val()
       category = $('#category_filter').val()
-      $.ajax '/songs',
+      $.ajax '/songs/select_fillter',
       type:'get'
       data:{language: language,category: category }
       dataType: 'script'

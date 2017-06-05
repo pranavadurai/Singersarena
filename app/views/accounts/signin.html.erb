@@ -11,11 +11,11 @@
    <div class="col-12 mt-3 all_border">
      <div class="row">
        <%= f.label :email %>
-       <%= f.email_field :email,class: "form-control",placeholder: "Email", id: "email_check" %>
+       <%= f.email_field :email,class: "form-control",placeholder: "Email", id: "email_check", required: true %>
      </div><p></p>
      <div class="row">
        <%= f.label :Password%>
-       <%= f.password_field :password,class: "form-control",placeholder: "Password", 'aria-describedby' => "passHelp"  %>
+       <%= f.password_field :password,class: "form-control",placeholder: "Password", 'aria-describedby' => "passHelp", required: true  %>
        <small id="passhelp" class="form-text text-muted"><%= link_to "Forgot Password?",forget_password_accounts_path %> </small>
      </div><p></p>
      <div class="row">

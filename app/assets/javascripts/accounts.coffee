@@ -46,6 +46,7 @@ $ ->
           $('#email_check').parent().addClass("has-danger")
           $('#email_check').addClass("form-control-danger")
           $('#signin_form').attr("disabled",true)
+
 $ ->
   $('#forget_password').on("ajax:success",(e,data,status,xhr) ->
      console.log data

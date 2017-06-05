@@ -12,3 +12,4 @@ class FollowerDetail < ApplicationRecord
   end
 
 end
+ 

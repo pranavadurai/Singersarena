@@ -102,7 +102,7 @@ class UsersController < ApplicationController
        format.js {}
      end
   end
-
+ 
   def unfollow
      @user = User.find(params[:follow][:followed_id])
      current_user.unfollow!(@user)

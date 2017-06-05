@@ -8,7 +8,7 @@ class Song < ApplicationRecord
   scope :language_fillter, -> (language) do
     return nil if language.blank?
     where("language = ?",language)
-  end
+  end 
 
   scope :category_fillter, -> (category) do
     return nil if category.blank?

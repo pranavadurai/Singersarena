@@ -18,7 +18,7 @@ class User < ApplicationRecord
 
   def follow!(other_user)
     followeds.create!(followed_id: other_user.id)
-  end
+  end 
 
   def unfollow!(other_user)
     followeds.find_by_followed_id(other_user.id).destroy

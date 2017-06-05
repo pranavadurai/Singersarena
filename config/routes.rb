@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       get 'unlike'
       get 'song'
       get 'test'
+      get 'select_fillter'
     end
   end
 

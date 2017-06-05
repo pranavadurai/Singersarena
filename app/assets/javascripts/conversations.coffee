@@ -4,6 +4,6 @@
 
 $ ->
   $('#new_message').on("ajax:success", (e,data,status,xhr) ->
-    $('#message_body').val(" ")
+    $('#message_body').val(" ") 
 ).on "ajax:error", (e, xhr, status, error) ->
     console.log error

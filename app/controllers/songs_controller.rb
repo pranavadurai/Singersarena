@@ -15,6 +15,14 @@ class SongsController < ApplicationController
     end
   end
 
+  def select_fillter
+    @songs = Song.language_fillter(params[:language]).category_fillter(params[:category]).order(:created_at => :desc).paginate(:page =>params[:page], :per_page => 6)
+    respond_to do |format|
+      format.html{ }
+      format.js{}
+    end
+  end
+
   # GET /songs/1
   # GET /songs/1.json
   def show
